@@ -1,0 +1,11 @@
+modules:
+  macro:
+    - key: deneer-confluence-jira-chart-hello-world
+      function: main
+      title: Forge app for jira chart for royal deneer dev team!
+      description: Inserts Hello world!
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/d759d36a-b7e7-480b-a7fe-de4816e57c1b
