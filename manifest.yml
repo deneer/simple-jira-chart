@@ -1,11 +1,42 @@
 modules:
   macro:
-    - key: deneer-confluence-jira-chart-hello-world
+    - key: deneer-chart
       function: main
-      title: Forge app for jira chart for royal deneer dev team!
+      title: Deneer Jira Chart
       description: Inserts Hello world!
+      config:
+        function: config-function-key
+
   function:
     - key: main
       handler: index.run
+    - key: config-function-key
+      handler: index.config
 app:
   id: ari:cloud:ecosystem::app/d759d36a-b7e7-480b-a7fe-de4816e57c1b
+permissions:
+  scopes:
+    - read:custom-field-contextual-configuration:jira
+    - read:issue-details:jira
+    - read:field.default-value:jira
+    - read:field.option:jira
+    - read:field:jira
+    - read:issue-event:jira
+    - read:issue-meta:jira
+    - read:issue-security-level:jira
+    - read:issue.vote:jira
+    - read:issue.changelog:jira
+    - read:issue:jira
+    - read:status:jira
+    - read:field-configuration:jira
+    - read:issue-type:jira
+    - read:project:jira
+    - read:project.property:jira
+    - read:user:jira
+    - read:application-role:jira
+    - read:avatar:jira
+    - read:group:jira
+    - read:issue-type-hierarchy:jira
+    - read:project-category:jira
+    - read:project-version:jira
+    - read:project.component:jira
