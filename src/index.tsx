@@ -9,12 +9,12 @@ resolver.define("getIssues", (req) => {
 
   return {
     payload: [
-      { x: 100, y: 200, z: 200 },
-      { x: 120, y: 100, z: 260 },
-      { x: 170, y: 300, z: 400 },
-      { x: 140, y: 250, z: 280 },
-      { x: 150, y: 400, z: 500 },
-      { x: 110, y: 280, z: 200 },
+      { x: 100, y: 200, z: 200, label: "label 1" },
+      { x: 120, y: 100, z: 260, label: "label 2" },
+      { x: 170, y: 300, z: 400, label: "label 3" },
+      { x: 140, y: 250, z: 280, label: "label 4" },
+      { x: 150, y: 400, z: 500, label: "label 5" },
+      { x: 110, y: 280, z: 200, label: "label 6" },
     ],
   };
 });
