@@ -1,21 +1,29 @@
-import ForgeUI, { render } from "@forge/ui";
+import ForgeUI, { render, useConfig } from "@forge/ui";
 import ChartConfig from "./components/ChartConfig";
 import Resolver from "@forge/resolver";
+import { getJiraIssuesWithJql } from "./lib/api";
 
 const resolver = new Resolver();
 
-resolver.define("getIssues", (req) => {
+resolver.define("getIssues", async (req) => {
   console.log(req);
+  //   console.log(req.context.extension.config);
+  const {
+    context: {
+      extension: { config },
+    },
+  } = req;
+  console.log(config);
+  const jiraResponse = await getJiraIssuesWithJql(config.jql);
+  console.log(jiraResponse.issues);
 
   return {
-    payload: [
-      { x: 100, y: 200, z: 200, label: "label 1" },
-      { x: 120, y: 100, z: 260, label: "label 2" },
-      { x: 170, y: 300, z: 400, label: "label 3" },
-      { x: 140, y: 250, z: 280, label: "label 4" },
-      { x: 150, y: 400, z: 500, label: "label 5" },
-      { x: 110, y: 280, z: 200, label: "label 6" },
-    ],
+    payload: jiraResponse.issues.map((issue) => ({
+      x: issue.fields[config.xAxis],
+      y: issue.fields[config.yAxis],
+      z: issue.fields[config.zAxis],
+      label: issue.fields.summary,
+    })),
   };
 });
 

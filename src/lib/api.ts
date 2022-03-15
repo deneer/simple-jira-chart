@@ -26,3 +26,6 @@ export async function getJiraIssuesWithJql(jql: string) {
   const data = await res.json();
   return data;
 }
+
+// TODO: need to make getJiraFieldWithKey to support the feature that is used to show field's name at chart
+export async function getJiraFieldWithKey(key: string) {}
