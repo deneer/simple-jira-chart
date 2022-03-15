@@ -1,79 +1,23 @@
-import ForgeUI, {
-  render,
-  Fragment,
-  Macro,
-  Text,
-  useState,
-  MacroConfig,
-  TextField,
-  Select,
-  Option,
-  useConfig,
-  SectionMessage,
-} from "@forge/ui";
-import { getJiraFields, getJiraIssuesWithJql } from "./lib/api";
+import ForgeUI, { render } from "@forge/ui";
+import ChartConfig from "./components/ChartConfig";
+import Resolver from "@forge/resolver";
 
-const defaultConfig = {
-  jql: "project = ",
-};
+const resolver = new Resolver();
 
-const App = () => {
-  const config = useConfig();
+resolver.define("getIssues", (req) => {
+  console.log(req);
 
-  const [data, setData] = useState(
-    async () => await getJiraIssuesWithJql("project = chart-test")
-  );
+  return {
+    payload: [
+      { x: 100, y: 200, z: 200 },
+      { x: 120, y: 100, z: 260 },
+      { x: 170, y: 300, z: 400 },
+      { x: 140, y: 250, z: 280 },
+      { x: 150, y: 400, z: 500 },
+      { x: 110, y: 280, z: 200 },
+    ],
+  };
+});
 
-  console.log(data);
-
-  if (config && config.jql !== defaultConfig.jql) {
-    return (
-      <Fragment>
-        <Text>JQL: {config.jql}</Text>
-        <Text>X: {config.xAxis || ""}</Text>
-        <Text>Y: {config.yAxis || ""}</Text>
-      </Fragment>
-    );
-  } else {
-    return (
-      <SectionMessage
-        title="You need to configure this macro"
-        appearance="warning"
-      >
-        <Text>
-          While editing the page, select the macro, and click on the pencil icon
-          to display configuration options.
-        </Text>
-      </SectionMessage>
-    );
-  }
-};
-
-export const run = render(<Macro app={<App />} />);
-
-const Config = () => {
-  const [fields, setFields] = useState<Array<any>>(
-    async () => await getJiraFields()
-  );
-  return (
-    <MacroConfig>
-      <TextField name="jql" label="JQL" defaultValue={defaultConfig.jql} />
-      <Select name="xAxis" label="x축 필드">
-        {fields
-          .filter((item) => item?.schema?.type === "number")
-          .map((field) => (
-            <Option label={field.name} value={field.name} />
-          ))}
-      </Select>
-      <Select name="yAxis" label="y축 필드">
-        {fields
-          .filter((item) => item?.schema?.type === "number")
-          .map((field) => (
-            <Option label={field.name} value={field.name} />
-          ))}
-      </Select>
-    </MacroConfig>
-  );
-};
-
-export const config = render(<Config />);
+export const config = render(<ChartConfig />);
+export const handler = resolver.getDefinitions();

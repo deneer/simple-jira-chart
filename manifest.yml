@@ -1,21 +1,27 @@
 modules:
   macro:
     - key: deneer-chart
-      function: main
+      resource: chart-app-key
+      resolver:
+        function: resolver-key
       title: Deneer Jira Chart
-      description: Inserts Hello world!
+      description: Deneer Jira Chart App
       config:
         function: config-function-key
-
   function:
-    - key: main
-      handler: index.run
+    - key: resolver-key
+      handler: index.handler
     - key: config-function-key
       handler: index.config
+resources:
+  - key: chart-app-key
+    path: static/chart-app/build
+
 app:
   id: ari:cloud:ecosystem::app/d759d36a-b7e7-480b-a7fe-de4816e57c1b
 permissions:
   scopes:
+    - read:avatar:jira
     - read:custom-field-contextual-configuration:jira
     - read:issue-details:jira
     - read:field.default-value:jira
@@ -34,9 +40,7 @@ permissions:
     - read:project.property:jira
     - read:user:jira
     - read:application-role:jira
-    - read:avatar:jira
     - read:group:jira
     - read:issue-type-hierarchy:jira
     - read:project-category:jira
     - read:project-version:jira
-    - read:project.component:jira
