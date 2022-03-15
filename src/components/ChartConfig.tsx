@@ -32,6 +32,13 @@ export default () => {
             <Option label={field.name} value={field.name} />
           ))}
       </Select>
+      <Select name="zAxis" label="Size 필드">
+        {fields
+          .filter((item) => item?.schema?.type === "number")
+          .map((field) => (
+            <Option label={field.name} value={field.name} />
+          ))}
+      </Select>
     </MacroConfig>
   );
 };

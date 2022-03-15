@@ -1,6 +1,6 @@
 import {
   CartesianGrid,
-  Legend,
+  LabelList,
   Scatter,
   ScatterChart,
   Tooltip,
@@ -9,17 +9,8 @@ import {
   ZAxis,
 } from "recharts";
 
-const jiraData = [
-  { x: 100, y: 200, z: 200 },
-  { x: 120, y: 100, z: 260 },
-  { x: 170, y: 300, z: 400 },
-  { x: 140, y: 250, z: 280 },
-  { x: 150, y: 400, z: 500 },
-  { x: 110, y: 280, z: 200 },
-];
-
 interface ScatterPlotProps {
-  plotData: { x: number; y: number; z: number }[];
+  plotData: { x: number; y: number; z: number; label: string }[];
 }
 
 const ScatterPlot = ({ plotData }: ScatterPlotProps) => (
@@ -44,8 +35,9 @@ const ScatterPlot = ({ plotData }: ScatterPlotProps) => (
       unit="km"
     />
     <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-    {/* <Legend /> */}
-    <Scatter name="Dev Team" data={plotData} fill="#8884d8" shape="circle" />
+    <Scatter name="Dev Team" data={plotData} fill="#8884d8" shape="circle">
+      <LabelList dataKey="label" position="bottom" offset={10} />
+    </Scatter>
   </ScatterChart>
 );
 
