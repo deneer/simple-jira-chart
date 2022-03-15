@@ -11,9 +11,18 @@ import {
 
 interface ScatterPlotProps {
   plotData: { x: number; y: number; z: number; label: string }[];
+  xAxisName: string;
+  yAxisName: string;
+  zAxisName: string;
 }
 
-const ScatterPlot = ({ plotData }: ScatterPlotProps) => (
+const ScatterPlot = ({
+  plotData,
+  xAxisName,
+  yAxisName,
+  zAxisName,
+}: ScatterPlotProps) => (
+  // TODO: need to handle null or undefined of plotData
   <ScatterChart
     width={400}
     height={300}
@@ -25,15 +34,9 @@ const ScatterPlot = ({ plotData }: ScatterPlotProps) => (
     }}
   >
     <CartesianGrid />
-    <XAxis type="number" dataKey="x" name="stature" unit="cm" />
-    <YAxis type="number" dataKey="y" name="weight" unit="kg" />
-    <ZAxis
-      type="number"
-      dataKey="z"
-      range={[60, 1000]}
-      name="score"
-      unit="km"
-    />
+    <XAxis type="number" dataKey="x" name={xAxisName} />
+    <YAxis type="number" dataKey="y" name={yAxisName} />
+    <ZAxis type="number" dataKey="z" range={[60, 1000]} name={zAxisName} />
     <Tooltip cursor={{ strokeDasharray: "3 3" }} />
     <Scatter name="Dev Team" data={plotData} fill="#8884d8" shape="circle">
       <LabelList dataKey="label" position="bottom" offset={10} />

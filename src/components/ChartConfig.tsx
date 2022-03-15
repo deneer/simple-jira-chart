@@ -15,6 +15,7 @@ export default () => {
   const [fields, setFields] = useState<Array<any>>(
     async () => await getJiraFields()
   );
+
   return (
     <MacroConfig>
       <TextField name="jql" label="JQL" defaultValue={defaultConfig.jql} />
@@ -22,21 +23,21 @@ export default () => {
         {fields
           .filter((item) => item?.schema?.type === "number")
           .map((field) => (
-            <Option label={field.name} value={field.name} />
+            <Option label={field.name} value={field.key} />
           ))}
       </Select>
       <Select name="yAxis" label="y축 필드">
         {fields
           .filter((item) => item?.schema?.type === "number")
           .map((field) => (
-            <Option label={field.name} value={field.name} />
+            <Option label={field.name} value={field.key} />
           ))}
       </Select>
       <Select name="zAxis" label="Size 필드">
         {fields
           .filter((item) => item?.schema?.type === "number")
           .map((field) => (
-            <Option label={field.name} value={field.name} />
+            <Option label={field.name} value={field.key} />
           ))}
       </Select>
     </MacroConfig>
