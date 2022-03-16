@@ -4,7 +4,7 @@ import ExcludedList from "./components/ExcludedList";
 import ScatterPlot from "./components/ScatterPlot";
 
 function App() {
-  const [plotData, setPlotData]: any = useState(null);
+  const [plotData, setPlotData]: any = useState([]);
   const [excludedData, setExcludedData] = useState([]);
   const [done, setDone] = useState<boolean>(false);
   const [config, setConfig] = useState<any>(null);
@@ -12,15 +12,16 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       const context: any = await view.getContext();
-      console.log("context", context);
       const {
         extension: { config },
       } = context;
       setConfig(config);
       invoke("getIssues", {}).then((res: any) => {
-        setPlotData(res.payload.filter((issue: any) => issue.x && issue.y));
+        setPlotData(
+          res.payload.filter((issue: any) => issue.x && issue.y && issue.z)
+        );
         setExcludedData(
-          res.payload.filter((issue: any) => !(issue.x && issue.y))
+          res.payload.filter((issue: any) => !(issue.x && issue.y && issue.z))
         );
         setDone(res.done);
       });
@@ -38,7 +39,7 @@ function App() {
             yAxisName={JSON.parse(config.yAxis).name}
             zAxisName={JSON.parse(config.zAxis).name}
           />
-          <ExcludedList data={excludedData} />
+          {excludedData.length > 0 && <ExcludedList data={excludedData} />}
         </>
       ) : (
         <p>Loading...</p>
