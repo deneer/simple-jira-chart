@@ -23,21 +23,30 @@ export default () => {
         {fields
           .filter((item) => item?.schema?.type === "number")
           .map((field) => (
-            <Option label={field.name} value={field.key} />
+            <Option
+              label={field.name}
+              value={JSON.stringify({ name: field.name, key: field.key })}
+            />
           ))}
       </Select>
       <Select name="yAxis" label="y축 필드">
         {fields
           .filter((item) => item?.schema?.type === "number")
           .map((field) => (
-            <Option label={field.name} value={field.key} />
+            <Option
+              label={field.name}
+              value={JSON.stringify({ name: field.name, key: field.key })}
+            />
           ))}
       </Select>
       <Select name="zAxis" label="Size 필드">
         {fields
           .filter((item) => item?.schema?.type === "number")
           .map((field) => (
-            <Option label={field.name} value={field.key} />
+            <Option
+              label={field.name}
+              value={JSON.stringify({ name: field.name, key: field.key })}
+            />
           ))}
       </Select>
     </MacroConfig>
