@@ -15,18 +15,21 @@ resolver.define("getIssues", async (req) => {
   } = req;
   console.log(config);
   const jiraResponse = await getJiraIssuesWithJql(config.jql);
-  console.log("jira Response:", jiraResponse.issues);
+  // console.log("jira Response:", jiraResponse.issues);
 
   return config.xAxis && config.yAxis && config.zAxis
-    ? {
-        payload: jiraResponse.issues.map((issue) => ({
-          x: issue.fields[JSON.parse(config.xAxis).key],
-          y: issue.fields[JSON.parse(config.yAxis).key],
-          z: issue.fields[JSON.parse(config.zAxis).key],
-          label: issue.fields.summary,
-        })),
-        done: true,
-      }
+    ? jiraResponse.issues
+      ? {
+          payload: jiraResponse.issues.map((issue) => ({
+            x: issue.fields[JSON.parse(config.xAxis).key],
+            y: issue.fields[JSON.parse(config.yAxis).key],
+            z: issue.fields[JSON.parse(config.zAxis).key],
+            label: issue.fields.summary,
+          })),
+          done: true,
+          error: false,
+        }
+      : { payload: [], done: true, error: true }
     : {
         payload: [],
         done: false,

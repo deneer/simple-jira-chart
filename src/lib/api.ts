@@ -18,8 +18,8 @@ export async function getJiraIssuesWithJql(jql: string) {
       "Content-type": "application/json",
     },
     body: `{
-        "jql": "${jql}",
-        "maxResults": 200
+      "jql": "${jql.replace(/\"/g, "'")}",
+      "maxResults": 200
     }`,
   });
 
