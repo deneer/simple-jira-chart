@@ -4,7 +4,7 @@ import ScatterPlotContainer from "./containers/ScatterPlotContainer";
 
 function SampleApp() {
   return (
-    <Box width="50%">
+    <Box width="100%">
       <ScatterPlotContainer />
     </Box>
   );

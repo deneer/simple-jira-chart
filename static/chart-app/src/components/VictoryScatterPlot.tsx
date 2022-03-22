@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import {
+  VictoryAxis,
   VictoryChart,
   VictoryLabel,
   VictoryScatter,
+  VictoryTheme,
   VictoryTooltip,
 } from "victory";
 
@@ -33,7 +35,6 @@ class ScatterTooltip extends React.Component<any> {
   static defaultEvents = VictoryTooltip.defaultEvents;
 
   render() {
-    console.log(this.props.datum);
     return (
       <VictoryTooltip
         {...this.props}
@@ -64,36 +65,33 @@ const VictoryScatterPlot = ({
   const [hover, setHover] = useState<boolean>(false);
 
   return (
-    <div>
-      <VictoryChart>
-        <VictoryScatter
-          data={data}
-          maxBubbleSize={25}
-          minBubbleSize={5}
-          domain={{ x: xDomain, y: yDomain }}
-          labelComponent={
-            showLabels ? (
-              hover ? (
-                <ScatterTooltip
-                  text={({ datum }: any) => [
-                    datum.label,
-                    `${xAxis} : ${datum.x}`,
-                    `${yAxis} : ${datum.y}`,
-                    `${zAxis} : ${datum.z}`,
-                  ]}
-                />
-              ) : (
-                <VictoryLabel
-                  text={({ datum }) =>
-                    datum.label.length > 8
-                      ? `${datum.label.slice(0, 8)} ...`
-                      : datum.label
-                  }
-                  renderInPortal={true}
-                  dy={6}
-                />
-              )
-            ) : (
+    <VictoryChart>
+      <VictoryAxis
+        crossAxis
+        label={xAxis}
+        offsetY={50}
+        style={{
+          axis: { strokeWidth: 2 },
+          grid: { stroke: "#F4F5F7", strokeWidth: 1 },
+        }}
+      />
+      <VictoryAxis
+        crossAxis
+        dependentAxis
+        label={yAxis}
+        style={{
+          axis: { strokeWidth: 2 },
+          grid: { stroke: "#F4F5F7", strokeWidth: 1 },
+        }}
+      />
+      <VictoryScatter
+        data={data}
+        maxBubbleSize={25}
+        minBubbleSize={5}
+        domain={{ x: xDomain, y: yDomain }}
+        labelComponent={
+          showLabels ? (
+            hover ? (
               <ScatterTooltip
                 text={({ datum }: any) => [
                   datum.label,
@@ -102,61 +100,80 @@ const VictoryScatterPlot = ({
                   `${zAxis} : ${datum.z}`,
                 ]}
               />
+            ) : (
+              <VictoryLabel
+                text={({ datum }) =>
+                  datum.label.length > 8
+                    ? `${datum.label.slice(0, 8)} ...`
+                    : datum.label
+                }
+                renderInPortal={true}
+                dy={6}
+              />
             )
-          }
-          events={[
-            {
-              target: "data",
-              eventHandlers: {
-                onClick: () => {
-                  return [
-                    {
-                      target: "labels",
-                      mutation: (props) => {
-                        return props.text === "clicked"
-                          ? null
-                          : { text: "clicked" };
+          ) : (
+            <ScatterTooltip
+              text={({ datum }: any) => [
+                datum.label,
+                `${xAxis} : ${datum.x}`,
+                `${yAxis} : ${datum.y}`,
+                `${zAxis} : ${datum.z}`,
+              ]}
+            />
+          )
+        }
+        events={[
+          {
+            target: "data",
+            eventHandlers: {
+              onClick: () => {
+                return [
+                  {
+                    target: "labels",
+                    mutation: (props) => {
+                      return props.text === "clicked"
+                        ? null
+                        : { text: "clicked" };
+                    },
+                  },
+                ];
+              },
+              onMouseEnter: () => {
+                showLabels && setHover(true);
+                return [
+                  {
+                    target: "data",
+                    mutation: (props) => ({
+                      style: {
+                        fill: props.style.fill,
+                        opacity: props.style.opacity,
+                        stroke: "black",
+                        strokeWidth: 2,
                       },
-                    },
-                  ];
-                },
-                onMouseEnter: () => {
-                  showLabels && setHover(true);
-                  return [
-                    {
-                      target: "data",
-                      mutation: (props) => ({
-                        style: {
-                          fill: props.style.fill,
-                          opacity: props.style.opacity,
-                          stroke: "black",
-                          strokeWidth: 2,
-                        },
-                      }),
-                    },
-                  ];
-                },
-                onMouseLeave: () => {
-                  showLabels && setHover(false);
-                  return [
-                    {
-                      target: "data",
-                      mutation: () => {},
-                    },
-                  ];
-                },
+                    }),
+                  },
+                ];
+              },
+              onMouseLeave: () => {
+                showLabels && setHover(false);
+                return [
+                  {
+                    target: "data",
+                    mutation: () => {},
+                  },
+                ];
               },
             },
-          ]}
-          style={{
-            data: {
-              fill: ({ datum }) => datum.fill || "#b029ff",
-              opacity: ({ datum }) => datum.opacity || 0.6,
-            },
-          }}
-        />
-      </VictoryChart>
-    </div>
+          },
+        ]}
+        style={{
+          data: {
+            fill: ({ datum }) => datum.fill || "#b029ff",
+            opacity: ({ datum }) => datum.opacity || 0.6,
+          },
+        }}
+      />
+    </VictoryChart>
   );
 };
 
