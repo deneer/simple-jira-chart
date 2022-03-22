@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Tooltip } from "recharts";
+import React, { useState } from "react";
 import {
   VictoryChart,
   VictoryLabel,
@@ -25,6 +24,32 @@ export interface ScatterPlotProps {
   yDomain: [number, number];
   showLabels: boolean;
   setShowLabels: React.Dispatch<React.SetStateAction<boolean>>;
+  xAxis: string;
+  yAxis: string;
+  zAxis: string;
+}
+
+class ScatterTooltip extends React.Component<any> {
+  static defaultEvents = VictoryTooltip.defaultEvents;
+
+  render() {
+    console.log(this.props.datum);
+    return (
+      <VictoryTooltip
+        {...this.props}
+        text={this.props.text}
+        orientation="top"
+        pointerLength={0}
+        flyoutStyle={{
+          fill: "white",
+        }}
+        flyoutWidth={({ datum }) => {
+          // TODO: add more complicated and delicate calculation to lengh calculation
+          return datum.label.length * 15;
+        }}
+      />
+    );
+  }
 }
 
 const VictoryScatterPlot = ({
@@ -32,6 +57,9 @@ const VictoryScatterPlot = ({
   xDomain,
   yDomain,
   showLabels,
+  xAxis,
+  yAxis,
+  zAxis,
 }: ScatterPlotProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
@@ -46,7 +74,14 @@ const VictoryScatterPlot = ({
           labelComponent={
             showLabels ? (
               hover ? (
-                <VictoryTooltip />
+                <ScatterTooltip
+                  text={({ datum }: any) => [
+                    datum.label,
+                    `${xAxis} : ${datum.x}`,
+                    `${yAxis} : ${datum.y}`,
+                    `${zAxis} : ${datum.z}`,
+                  ]}
+                />
               ) : (
                 <VictoryLabel
                   text={({ datum }) =>
@@ -59,7 +94,14 @@ const VictoryScatterPlot = ({
                 />
               )
             ) : (
-              <VictoryTooltip />
+              <ScatterTooltip
+                text={({ datum }: any) => [
+                  datum.label,
+                  `${xAxis} : ${datum.x}`,
+                  `${yAxis} : ${datum.y}`,
+                  `${zAxis} : ${datum.z}`,
+                ]}
+              />
             )
           }
           events={[
@@ -108,7 +150,7 @@ const VictoryScatterPlot = ({
           ]}
           style={{
             data: {
-              fill: ({ datum }) => datum.fill,
+              fill: ({ datum }) => datum.fill || "#b029ff",
               opacity: ({ datum }) => datum.opacity || 0.6,
             },
           }}

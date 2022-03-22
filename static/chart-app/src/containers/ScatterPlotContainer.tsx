@@ -74,6 +74,9 @@ function ScatterPlotContainer() {
         yDomain={yDomain}
         showLabels={showLabels}
         setShowLabels={setShowLabels}
+        xAxis="긴급도"
+        yAxis="중요도"
+        zAxis="Estimate"
       ></VictoryScatterPlot>
       <Flex width="100%" justifyContent="center">
         <Flex width="180px" alignItems="center" justifyContent="space-evenly">
