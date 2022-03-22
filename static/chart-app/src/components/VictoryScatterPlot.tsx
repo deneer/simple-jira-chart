@@ -54,6 +54,7 @@ const VictoryScatterPlot = ({
                       ? `${datum.label.slice(0, 8)} ...`
                       : datum.label
                   }
+                  renderInPortal={true}
                   dy={6}
                 />
               )
@@ -79,9 +80,28 @@ const VictoryScatterPlot = ({
                 },
                 onMouseEnter: () => {
                   showLabels && setHover(true);
+                  return [
+                    {
+                      target: "data",
+                      mutation: (props) => ({
+                        style: {
+                          fill: props.style.fill,
+                          opacity: props.style.opacity,
+                          stroke: "black",
+                          strokeWidth: 2,
+                        },
+                      }),
+                    },
+                  ];
                 },
                 onMouseLeave: () => {
                   showLabels && setHover(false);
+                  return [
+                    {
+                      target: "data",
+                      mutation: () => {},
+                    },
+                  ];
                 },
               },
             },
