@@ -13,6 +13,13 @@ import VictoryScatterPlot, {
   ScatterDatum,
 } from "../components/VictoryScatterPlot";
 
+interface ScatterPlotContainerProps {
+  data: ScatterData;
+  xAxis: string;
+  yAxis: string;
+  zAxis: string;
+}
+
 function ScatterPlotContainer() {
   const exampleData: ScatterData = [
     {
