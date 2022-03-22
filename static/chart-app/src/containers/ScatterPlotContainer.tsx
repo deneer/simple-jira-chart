@@ -8,7 +8,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import Tooltip from "../components/Tooltip";
 import VictoryScatterPlot, {
   ScatterData,
   ScatterDatum,
