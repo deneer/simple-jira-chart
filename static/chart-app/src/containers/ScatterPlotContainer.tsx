@@ -1,77 +1,43 @@
-import {
-  Box,
-  Checkbox,
-  Flex,
-  FormControl,
-  FormLabel,
-  Switch,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Switch, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import VictoryScatterPlot, {
   ScatterData,
-  ScatterDatum,
 } from "../components/VictoryScatterPlot";
 
 interface ScatterPlotContainerProps {
-  data: ScatterData;
+  plotData: ScatterData;
   xAxis: string;
   yAxis: string;
   zAxis: string;
 }
 
-function ScatterPlotContainer() {
-  const exampleData: ScatterData = [
-    {
-      x: 2,
-      y: 1,
-      label: "first",
-      symbol: "circle",
-      opacity: 0.6,
-      fill: "skyblue",
-      z: 10,
-    },
-    {
-      x: 2,
-      y: 2,
-      label: "second",
-      symbol: "circle",
-      opacity: 0.6,
-      fill: "red",
-      z: 30,
-    },
-    {
-      x: 3,
-      y: 3,
-      label: "만약 이런식으로 이슈 라벨이 엄청나게 엄청나게 길어진다면",
-      symbol: "circle",
-      fill: "gold",
-      z: 40,
-    },
-    { x: 15, y: 15, label: "fourth", symbol: "circle", fill: "green", z: 30 },
-  ];
-
+function ScatterPlotContainer({
+  plotData,
+  xAxis,
+  yAxis,
+  zAxis,
+}: ScatterPlotContainerProps) {
   const xPadding: number =
-    exampleData.reduce((acc, curr) => acc + curr.x, 0) /
-    exampleData.length /
-    exampleData.length;
+    plotData.reduce((acc, curr) => acc + curr.x, 0) /
+    plotData.length /
+    plotData.length;
   const yPadding: number =
-    exampleData.reduce((acc, curr) => acc + curr.y, 0) /
-    exampleData.length /
-    exampleData.length;
+    plotData.reduce((acc, curr) => acc + curr.y, 0) /
+    plotData.length /
+    plotData.length;
 
   const xDomain: [number, number] = [
-    Math.min(...exampleData.map((datum) => datum.x)) - xPadding,
-    Math.max(...exampleData.map((datum) => datum.x)) + xPadding,
+    Math.min(...plotData.map((datum) => datum.x)) - xPadding,
+    Math.max(...plotData.map((datum) => datum.x)) + xPadding,
   ];
   const yDomain: [number, number] = [
-    Math.min(...exampleData.map((datum) => datum.y)) - yPadding,
-    Math.max(...exampleData.map((datum) => datum.y)) + yPadding,
+    Math.min(...plotData.map((datum) => datum.y)) - yPadding,
+    Math.max(...plotData.map((datum) => datum.y)) + yPadding,
   ];
 
   const [showLabels, setShowLabels] = useState<boolean>(true);
 
-  const sortedData = [...exampleData].sort((a, b) => b.z - a.z);
+  const sortedData = [...plotData].sort((a, b) => b.z - a.z);
 
   return (
     <Flex width="100%" flexDir="column" padding={4} alignItems="center">
@@ -81,9 +47,9 @@ function ScatterPlotContainer() {
         yDomain={yDomain}
         showLabels={showLabels}
         setShowLabels={setShowLabels}
-        xAxis="긴급도"
-        yAxis="중요도"
-        zAxis="Estimate"
+        xAxis={xAxis}
+        yAxis={yAxis}
+        zAxis={zAxis}
       ></VictoryScatterPlot>
       <Flex width="100%" justifyContent="center">
         <Flex width="180px" alignItems="center" justifyContent="space-evenly">
