@@ -120,19 +120,25 @@ const VictoryScatterPlot = ({
       <VictoryChart>
         <VictoryAxis
           crossAxis
+          axisLabelComponent={
+            <VictoryLabel style={{ fontFamily: "Nanum Gothic" }} dy={5} />
+          }
           label={xAxis}
           offsetY={50}
           style={{
-            axis: { strokeWidth: 2, fontFamily: "Nanum Gothic" },
+            axis: { strokeWidth: 2 },
             grid: { stroke: "#F4F5F7", strokeWidth: 1 },
           }}
         />
         <VictoryAxis
           crossAxis
           dependentAxis
+          axisLabelComponent={
+            <VictoryLabel style={{ fontFamily: "Nanum Gothic" }} dy={-5} />
+          }
           label={yAxis}
           style={{
-            axis: { strokeWidth: 2, fontFamily: "Nanum Gothic" },
+            axis: { strokeWidth: 2 },
             grid: { stroke: "#F4F5F7", strokeWidth: 1 },
           }}
         />
