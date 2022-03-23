@@ -38,6 +38,7 @@ class ScatterTooltip extends React.Component<any> {
   render() {
     return (
       <VictoryTooltip
+        constrainToVisibleArea
         {...this.props}
         text={this.props.text}
         orientation="top"
@@ -102,7 +103,7 @@ const VictoryScatterPlot = ({
                 yAxis={yAxis}
                 zAxis={zAxis}
                 text={({ datum }: any) => [
-                  datum.label,
+                  `< ${datum.label} >`,
                   `${xAxis} : ${datum.x}`,
                   `${yAxis} : ${datum.y}`,
                   `${zAxis} : ${datum.z}`,
@@ -125,7 +126,7 @@ const VictoryScatterPlot = ({
               yAxis={yAxis}
               zAxis={zAxis}
               text={({ datum }: any) => [
-                datum.label,
+                `< ${datum.label} >`,
                 `${xAxis} : ${datum.x}`,
                 `${yAxis} : ${datum.y}`,
                 `${zAxis} : ${datum.z}`,
