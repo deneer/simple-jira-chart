@@ -1,9 +1,9 @@
 import VictoryScatterPlot, {
-  ScatterData,
+  ScatterDatum,
 } from "../components/VictoryScatterPlot";
 
 interface ScatterPlotContainerProps {
-  plotData: ScatterData;
+  plotData: Array<Omit<ScatterDatum, "z"> & { z?: number }>;
   xAxis: string;
   yAxis: string;
   zAxis: string;
@@ -33,7 +33,16 @@ function ScatterPlotContainer({
     Math.max(...plotData.map((datum) => datum.y)) + yPadding,
   ];
 
-  const sortedData = [...plotData].sort((a, b) => b.z - a.z);
+  const sortedData = [...plotData]
+    .map(
+      (datum): ScatterDatum =>
+        datum.z !== undefined
+          ? datum.z === 0
+            ? ({ ...datum, symbol: "star" } as ScatterDatum)
+            : (datum as ScatterDatum)
+          : { ...datum, z: 0, symbol: "triangleUp", fill: "red" }
+    )
+    .sort((a, b) => b.z - a.z);
 
   return (
     <div className="flex flex-col w-full p-4 items-center">
