@@ -134,7 +134,7 @@ const VictoryScatterPlot = ({
           crossAxis
           dependentAxis
           axisLabelComponent={
-            <VictoryLabel style={{ fontFamily: "Nanum Gothic" }} dy={-5} />
+            <VictoryLabel style={{ fontFamily: "Nanum Gothic" }} dy={-10} />
           }
           label={yAxis}
           style={{
