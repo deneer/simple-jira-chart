@@ -24,7 +24,7 @@ resolver.define("getIssues", async (req) => {
             x: issue.fields[JSON.parse(config.xAxis).key],
             y: issue.fields[JSON.parse(config.yAxis).key],
             z: issue.fields[JSON.parse(config.zAxis).key],
-            label: issue.fields.summary,
+            title: issue.fields.summary,
           })),
           done: true,
           error: false,
