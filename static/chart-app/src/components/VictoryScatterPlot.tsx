@@ -45,6 +45,7 @@ class ScatterTooltip extends React.Component<any> {
         flyoutStyle={{
           fill: "white",
         }}
+        style={{ fontFamily: "Nanum Gothic" }}
         flyoutWidth={({ datum }) => {
           return calculateWidth(
             datum,
@@ -76,7 +77,7 @@ const VictoryScatterPlot = ({
         label={xAxis}
         offsetY={50}
         style={{
-          axis: { strokeWidth: 2 },
+          axis: { strokeWidth: 2, fontFamily: "Nanum Gothic" },
           grid: { stroke: "#F4F5F7", strokeWidth: 1 },
         }}
       />
@@ -85,7 +86,7 @@ const VictoryScatterPlot = ({
         dependentAxis
         label={yAxis}
         style={{
-          axis: { strokeWidth: 2 },
+          axis: { strokeWidth: 2, fontFamily: "Nanum Gothic" },
           grid: { stroke: "#F4F5F7", strokeWidth: 1 },
         }}
       />
@@ -115,8 +116,10 @@ const VictoryScatterPlot = ({
                     ? `${datum.label.slice(0, 8)} ...`
                     : datum.label
                 }
+                style={{ fontFamily: "Nanum Gothic", fontSize: "10px" }}
                 renderInPortal={true}
-                dy={6}
+                verticalAnchor="middle"
+                dy={0}
               />
             )
           ) : (
