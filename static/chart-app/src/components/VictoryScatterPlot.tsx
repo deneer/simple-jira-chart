@@ -4,7 +4,6 @@ import {
   VictoryChart,
   VictoryLabel,
   VictoryScatter,
-  VictoryTheme,
   VictoryTooltip,
 } from "victory";
 import { calculateWidth } from "../lib/util";
