@@ -18,11 +18,9 @@ function App() {
       } = context;
       setConfig(config);
       invoke("getIssues", {}).then((res: any) => {
-        setPlotData(
-          res.payload.filter((issue: any) => issue.x && issue.y && issue.z)
-        );
+        setPlotData(res.payload.filter((issue: any) => issue.x && issue.y));
         setExcludedData(
-          res.payload.filter((issue: any) => !(issue.x && issue.y && issue.z))
+          res.payload.filter((issue: any) => !(issue.x && issue.y))
         );
         setDone(res.done);
         setError(res.error);

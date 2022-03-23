@@ -14,7 +14,16 @@ export interface ScatterDatum {
   y: number;
   z: number;
   title: string;
-  symbol: "star" | "circle" | "square" | "diamond";
+  symbol:
+    | "star"
+    | "circle"
+    | "square"
+    | "diamond"
+    | "cross"
+    | "plus"
+    | "minus"
+    | "triangleDown"
+    | "triangleUp";
   fill?: "red" | "green" | "blue" | "purple" | string;
   opacity?: number;
 }
