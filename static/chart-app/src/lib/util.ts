@@ -1,7 +1,14 @@
-import { ScatterDatum } from "../components/VictoryScatterPlot";
+import { JitteredDatum, ScatterDatum } from "../components/VictoryScatterPlot";
 
-export function getRandomFloat(min: number, max: number) {
+function getRandomFloat(min: number, max: number) {
   return Math.random() * (max - min) + min; //최댓값은 제외, 최솟값은 포함
+}
+
+export function getRandomJitter(domain: [number, number]): number {
+  return getRandomFloat(
+    -((domain[1] - domain[0]) / 50),
+    (domain[1] - domain[0]) / 50
+  );
 }
 
 function checkKor(str: string) {
@@ -21,14 +28,14 @@ function calculateStringWidth(str: string): number {
 }
 
 export function calculateWidth(
-  datum: ScatterDatum,
+  datum: JitteredDatum,
   xAxis: string,
   yAxis: string,
   zAxis: string
 ): number {
   const max_length = Math.max(
-    calculateStringWidth(xAxis) + String(datum.x).length + 3,
-    calculateStringWidth(yAxis) + String(datum.y).length + 3,
+    calculateStringWidth(xAxis) + String(datum.originX).length + 3,
+    calculateStringWidth(yAxis) + String(datum.originY).length + 3,
     calculateStringWidth(zAxis) + String(datum.z).length + 3,
     calculateStringWidth(datum.label) + 4
   );
