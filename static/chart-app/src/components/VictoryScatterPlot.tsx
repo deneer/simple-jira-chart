@@ -7,6 +7,7 @@ import {
   VictoryTheme,
   VictoryTooltip,
 } from "victory";
+import { calculateWidth } from "../lib/util";
 
 export interface ScatterDatum {
   x: number;
@@ -45,8 +46,12 @@ class ScatterTooltip extends React.Component<any> {
           fill: "white",
         }}
         flyoutWidth={({ datum }) => {
-          // TODO: add more complicated and delicate calculation to lengh calculation
-          return datum.label.length * 15;
+          return calculateWidth(
+            datum,
+            this.props.xAxis,
+            this.props.yAxis,
+            this.props.zAxis
+          );
         }}
       />
     );
@@ -93,6 +98,9 @@ const VictoryScatterPlot = ({
           showLabels ? (
             hover ? (
               <ScatterTooltip
+                xAxis={xAxis}
+                yAxis={yAxis}
+                zAxis={zAxis}
                 text={({ datum }: any) => [
                   datum.label,
                   `${xAxis} : ${datum.x}`,
@@ -113,6 +121,9 @@ const VictoryScatterPlot = ({
             )
           ) : (
             <ScatterTooltip
+              xAxis={xAxis}
+              yAxis={yAxis}
+              zAxis={zAxis}
               text={({ datum }: any) => [
                 datum.label,
                 `${xAxis} : ${datum.x}`,
