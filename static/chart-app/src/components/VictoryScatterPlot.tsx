@@ -48,7 +48,9 @@ class ScatterTooltip extends React.Component<any> {
         flyoutStyle={{
           fill: "white",
         }}
-        style={{ fontFamily: "Nanum Gothic", lineHeight: 1 }}
+        flyoutPadding={5}
+        labelComponent={<VictoryLabel lineHeight={1.2} />}
+        style={{ fontFamily: "Nanum Gothic", fontSize: "12px" }}
         flyoutWidth={({ datum }) => {
           return calculateWidth(
             datum,
