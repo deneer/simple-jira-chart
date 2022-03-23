@@ -12,7 +12,7 @@ export interface ScatterDatum {
   x: number;
   y: number;
   z: number;
-  label?: string;
+  label: string;
   symbol: "star" | "circle" | "square" | "diamond";
   fill?: "red" | "green" | "blue" | "purple" | string;
   opacity?: number;
@@ -112,8 +112,8 @@ const VictoryScatterPlot = ({
             ) : (
               <VictoryLabel
                 text={({ datum }) =>
-                  datum.label.length > 8
-                    ? `${datum.label.slice(0, 8)} ...`
+                  datum.label.length > 15
+                    ? `${datum.label.slice(0, 15)} ...`
                     : datum.label
                 }
                 style={{ fontFamily: "Nanum Gothic", fontSize: "10px" }}
