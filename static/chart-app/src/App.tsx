@@ -38,12 +38,6 @@ function App() {
           <p>Error occured. Please check your jql or fields.</p>
         ) : (
           <>
-            {/* <ScatterPlot
-              plotData={plotData}
-              xAxisName={JSON.parse(config.xAxis).name}
-              yAxisName={JSON.parse(config.yAxis).name}
-              zAxisName={JSON.parse(config.zAxis).name}
-            /> */}
             <ScatterPlotContainer
               plotData={plotData}
               xAxis={JSON.parse(config.xAxis).name}

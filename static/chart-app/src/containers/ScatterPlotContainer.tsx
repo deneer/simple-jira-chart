@@ -1,5 +1,3 @@
-import { Switch } from "@headlessui/react";
-import { useState } from "react";
 import VictoryScatterPlot, {
   ScatterData,
 } from "../components/VictoryScatterPlot";
