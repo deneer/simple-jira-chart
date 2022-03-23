@@ -16,7 +16,7 @@ function checkKor(str: string) {
 function calculateStringWidth(str: string): number {
   return str
     .split("")
-    .map((c) => (checkKor(c) ? 1.4 : 1.2))
+    .map((c) => (checkKor(c) ? 1.3 : 1))
     .reduce((a, b) => a + b, 0);
 }
 
