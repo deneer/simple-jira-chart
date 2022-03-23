@@ -1,6 +1,6 @@
-import ForgeUI, { render, useConfig } from "@forge/ui";
-import ChartConfig from "./components/ChartConfig";
 import Resolver from "@forge/resolver";
+import ForgeUI, { render } from "@forge/ui";
+import ChartConfig from "./components/ChartConfig";
 import { getJiraIssuesWithJql } from "./lib/api";
 
 const resolver = new Resolver();
@@ -24,7 +24,7 @@ resolver.define("getIssues", async (req) => {
             x: issue.fields[JSON.parse(config.xAxis).key],
             y: issue.fields[JSON.parse(config.yAxis).key],
             z: issue.fields[JSON.parse(config.zAxis).key],
-            label: issue.fields.summary,
+            title: issue.fields.summary,
           })),
           done: true,
           error: false,

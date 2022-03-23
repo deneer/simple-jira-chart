@@ -1,7 +1,7 @@
 import { invoke, view } from "@forge/bridge";
 import React, { useEffect, useState } from "react";
 import ExcludedList from "./components/ExcludedList";
-import ScatterPlot from "./components/ScatterPlot";
+import ScatterPlotContainer from "./containers/ScatterPlotContainer";
 
 function App() {
   const [plotData, setPlotData]: any = useState([]);
@@ -38,11 +38,11 @@ function App() {
           <p>Error occured. Please check your jql or fields.</p>
         ) : (
           <>
-            <ScatterPlot
+            <ScatterPlotContainer
               plotData={plotData}
-              xAxisName={JSON.parse(config.xAxis).name}
-              yAxisName={JSON.parse(config.yAxis).name}
-              zAxisName={JSON.parse(config.zAxis).name}
+              xAxis={JSON.parse(config.xAxis).name}
+              yAxis={JSON.parse(config.yAxis).name}
+              zAxis={JSON.parse(config.zAxis).name}
             />
             {excludedData.length > 0 && <ExcludedList data={excludedData} />}
           </>

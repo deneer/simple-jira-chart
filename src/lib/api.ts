@@ -1,4 +1,4 @@
-import api, { route, fetch, authorize } from "@forge/api";
+import api, { route } from "@forge/api";
 
 export async function getJiraFields() {
   const res = await api.asUser().requestJira(route`/rest/api/3/field`, {
