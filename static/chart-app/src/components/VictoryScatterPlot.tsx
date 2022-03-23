@@ -165,7 +165,7 @@ const VictoryScatterPlot = ({
               target: "data",
               eventHandlers: {
                 onMouseEnter: () => {
-                  showLabels && setHover(true);
+                  setHover(true);
                   return [
                     {
                       target: "data",
@@ -181,7 +181,7 @@ const VictoryScatterPlot = ({
                   ];
                 },
                 onMouseLeave: () => {
-                  showLabels && setHover(false);
+                  setHover(false);
                   return [
                     {
                       target: "data",
