@@ -1,4 +1,4 @@
-import { JitteredDatum, ScatterDatum } from "../components/VictoryScatterPlot";
+import { JitteredDatum } from "../components/VictoryScatterPlot";
 
 function getRandomFloat(min: number, max: number) {
   return Math.random() * (max - min) + min; //최댓값은 제외, 최솟값은 포함
@@ -37,7 +37,7 @@ export function calculateWidth(
     calculateStringWidth(xAxis) + String(datum.originX).length + 3,
     calculateStringWidth(yAxis) + String(datum.originY).length + 3,
     calculateStringWidth(zAxis) + String(datum.z).length + 3,
-    calculateStringWidth(datum.label) + 4
+    calculateStringWidth(datum.title) + 4
   );
   return max_length * 9;
 }

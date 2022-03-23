@@ -13,7 +13,7 @@ export interface ScatterDatum {
   x: number;
   y: number;
   z: number;
-  label: string;
+  title: string;
   symbol: "star" | "circle" | "square" | "diamond";
   fill?: "red" | "green" | "blue" | "purple" | string;
   opacity?: number;
@@ -43,7 +43,6 @@ class ScatterTooltip extends React.Component<any> {
       <VictoryTooltip
         constrainToVisibleArea
         {...this.props}
-        text={this.props.text}
         orientation="top"
         pointerLength={0}
         flyoutStyle={{
@@ -131,27 +130,24 @@ const VictoryScatterPlot = ({
           maxBubbleSize={25}
           minBubbleSize={5}
           domain={{ x: xDomain, y: yDomain }}
+          labels={({ datum }: { datum: JitteredDatum }) =>
+            hover
+              ? [
+                  `< ${datum.title} >`,
+                  `${xAxis} : ${datum.originX}`,
+                  `${yAxis} : ${datum.originY}`,
+                  `${zAxis} : ${datum.z}`,
+                ]
+              : datum.title.length > 15
+              ? `${datum.title.slice(0, 15)} ...`
+              : datum.title
+          }
           labelComponent={
             showLabels ? (
               hover ? (
-                <ScatterTooltip
-                  xAxis={xAxis}
-                  yAxis={yAxis}
-                  zAxis={zAxis}
-                  text={({ datum }: any) => [
-                    `< ${datum.label} >`,
-                    `${xAxis} : ${datum.originX}`,
-                    `${yAxis} : ${datum.originY}`,
-                    `${zAxis} : ${datum.z}`,
-                  ]}
-                />
+                <ScatterTooltip xAxis={xAxis} yAxis={yAxis} zAxis={zAxis} />
               ) : (
                 <VictoryLabel
-                  text={({ datum }) =>
-                    datum.label.length > 15
-                      ? `${datum.label.slice(0, 15)} ...`
-                      : datum.label
-                  }
                   style={{ fontFamily: "Nanum Gothic", fontSize: "10px" }}
                   renderInPortal={true}
                   verticalAnchor="middle"
@@ -159,17 +155,7 @@ const VictoryScatterPlot = ({
                 />
               )
             ) : (
-              <ScatterTooltip
-                xAxis={xAxis}
-                yAxis={yAxis}
-                zAxis={zAxis}
-                text={({ datum }: any) => [
-                  `< ${datum.label} >`,
-                  `${xAxis} : ${datum.originX}`,
-                  `${yAxis} : ${datum.originY}`,
-                  `${zAxis} : ${datum.z}`,
-                ]}
-              />
+              <ScatterTooltip xAxis={xAxis} yAxis={yAxis} zAxis={zAxis} />
             )
           }
           events={[
