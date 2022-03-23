@@ -176,18 +176,6 @@ const VictoryScatterPlot = ({
             {
               target: "data",
               eventHandlers: {
-                onClick: () => {
-                  return [
-                    {
-                      target: "labels",
-                      mutation: (props) => {
-                        return props.text === "clicked"
-                          ? null
-                          : { text: "clicked" };
-                      },
-                    },
-                  ];
-                },
                 onMouseEnter: () => {
                   showLabels && setHover(true);
                   return [
