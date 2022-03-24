@@ -8,13 +8,14 @@ const resolver = new Resolver();
 resolver.define("getIssues", async (req) => {
   console.log(req);
   //   console.log(req.context.extension.config);
+
   const {
     context: {
       extension: { config },
     },
   } = req;
   console.log(config);
-  if (!config.jql) {
+  if (!config || !config.jql) {
     return { payload: [], done: true, error: true };
   }
   const jiraResponse = await getJiraIssuesWithJql(config.jql);
