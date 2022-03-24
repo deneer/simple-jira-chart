@@ -36,7 +36,7 @@ function ScatterPlotContainer({
   const sortedData = [...plotData]
     .map(
       (datum): ScatterDatum =>
-        datum.z !== undefined
+        !(datum.z === undefined && datum.z === null)
           ? datum.z === 0
             ? ({ ...datum, symbol: "star" } as ScatterDatum)
             : (datum as ScatterDatum)
