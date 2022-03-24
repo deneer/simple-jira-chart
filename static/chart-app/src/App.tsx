@@ -41,7 +41,12 @@ function App() {
               yAxis={JSON.parse(config.yAxis).name}
               zAxis={JSON.parse(config.zAxis).name}
             />
-            <ExcludedList data={excludedData} />
+            <ExcludedList
+              data={excludedData}
+              xAxis={JSON.parse(config.xAxis).name}
+              yAxis={JSON.parse(config.yAxis).name}
+              zAxis={JSON.parse(config.zAxis).name}
+            />
           </>
         )
       ) : (
