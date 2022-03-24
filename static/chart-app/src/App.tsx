@@ -20,7 +20,7 @@ function App() {
       invoke("getIssues", {}).then((res: any) => {
         setPlotData(res.payload.filter((issue: any) => issue.x && issue.y));
         setExcludedData(
-          res.payload.filter((issue: any) => !(issue.x && issue.y))
+          res.payload.filter((issue: any) => !(issue.x || issue.y))
         );
         setDone(res.done);
         setError(res.error);
