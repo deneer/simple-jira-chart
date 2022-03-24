@@ -22,9 +22,8 @@ function App() {
         setExcludedData(
           res.payload.filter((issue: any) => !(issue.x || issue.y))
         );
-        console.log(excludedData);
-        setDone(res.done);
         setError(res.error);
+        setDone(res.done);
       });
     };
     getData();

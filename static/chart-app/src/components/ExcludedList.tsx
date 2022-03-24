@@ -8,8 +8,6 @@ interface ExcludedListProps {
 }
 
 const ExcludedList = ({ data }: ExcludedListProps) => {
-  console.log("?", data);
-  console.log("??", data.length);
   return data.length > 0 ? (
     <div>
       <h2>Excluded Items</h2>
