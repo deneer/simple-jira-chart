@@ -14,6 +14,9 @@ resolver.define("getIssues", async (req) => {
     },
   } = req;
   console.log(config);
+  if (!config.jql) {
+    return { payload: [], done: true, error: true };
+  }
   const jiraResponse = await getJiraIssuesWithJql(config.jql);
   // console.log("jira Response:", jiraResponse.issues);
 
