@@ -3,20 +3,24 @@ interface ExcludedListProps {
     x?: number | null;
     y?: number | null;
     z?: number | null;
-    label: string;
+    title: string;
   }[];
 }
 
 const ExcludedList = ({ data }: ExcludedListProps) => {
-  return (
+  console.log("?", data);
+  console.log("??", data.length);
+  return data.length > 0 ? (
     <div>
       <h2>Excluded Items</h2>
       <ul>
         {data.map((issue) => (
-          <li>{issue.label}</li>
+          <li>{issue.title}</li>
         ))}
       </ul>
     </div>
+  ) : (
+    <></>
   );
 };
 

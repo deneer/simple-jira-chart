@@ -22,13 +22,13 @@ function App() {
         setExcludedData(
           res.payload.filter((issue: any) => !(issue.x || issue.y))
         );
+        console.log(excludedData);
         setDone(res.done);
         setError(res.error);
       });
     };
     getData();
   }, []);
-
   return (
     <div>
       {done ? (
@@ -42,7 +42,7 @@ function App() {
               yAxis={JSON.parse(config.yAxis).name}
               zAxis={JSON.parse(config.zAxis).name}
             />
-            {excludedData.length > 0 && <ExcludedList data={excludedData} />}
+            <ExcludedList data={excludedData} />
           </>
         )
       ) : (
