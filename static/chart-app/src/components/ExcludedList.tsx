@@ -1,5 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
+import { router } from "@forge/bridge";
 
 export interface ExcludedDatum {
   x?: number | null;
@@ -32,8 +33,11 @@ const ExcludedItem = ({
 }: ExcludedItemProps) => {
   return (
     <div className="flex flex-col mt-2 mb-2 bg-gray-50 p-4 rounded-md">
-      <div className="text-lg font-semibold mb-2">
-        <a href={`${baseUrl}/browse/${issueKey}`}>{title}</a>
+      <div
+        className="text-lg font-semibold mb-2 cursor-pointer"
+        onClick={() => router.open(`${baseUrl}/browse/${issueKey}`)}
+      >
+        {title}
       </div>
       <div className="flex flex-row">
         {x ? (
