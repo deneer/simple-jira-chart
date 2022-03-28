@@ -6,29 +6,35 @@ export interface ExcludedDatum {
   y?: number | null;
   z?: number | null;
   title: string;
+  issueKey: string;
 }
 interface ExcludedListProps {
   data: ExcludedDatum[];
   xAxis: string;
   yAxis: string;
   zAxis: string;
+  baseUrl: string;
 }
 
 type ExcludedItemProps = ExcludedDatum &
-  Pick<ExcludedListProps, "xAxis" | "yAxis" | "zAxis">;
+  Pick<ExcludedListProps, "xAxis" | "yAxis" | "zAxis" | "baseUrl">;
 
 const ExcludedItem = ({
   x,
   y,
   z,
   title,
+  baseUrl,
+  issueKey,
   xAxis,
   yAxis,
   zAxis,
 }: ExcludedItemProps) => {
   return (
     <div className="flex flex-col mt-2 mb-2 bg-gray-50 p-4 rounded-md">
-      <div className="text-lg font-semibold mb-2">{title}</div>
+      <div className="text-lg font-semibold mb-2">
+        <a href={`${baseUrl}/browse/${issueKey}`}>{title}</a>
+      </div>
       <div className="flex flex-row">
         {x ? (
           <div className="mr-2 bg-green-200 p-1 rounded-sm">
@@ -62,7 +68,13 @@ const ExcludedItem = ({
   );
 };
 
-const ExcludedList = ({ data, xAxis, yAxis, zAxis }: ExcludedListProps) => {
+const ExcludedList = ({
+  data,
+  xAxis,
+  yAxis,
+  zAxis,
+  baseUrl,
+}: ExcludedListProps) => {
   return data.length > 0 ? (
     <div className="w-full px-4 pt-2">
       <div className="w-full p-2 mx-auto bg-white rounded-2xl">
@@ -84,6 +96,8 @@ const ExcludedList = ({ data, xAxis, yAxis, zAxis }: ExcludedListProps) => {
                     y={issue.y}
                     z={issue.z}
                     title={issue.title}
+                    baseUrl={baseUrl}
+                    issueKey={issue.issueKey}
                     xAxis={xAxis}
                     yAxis={yAxis}
                     zAxis={zAxis}
