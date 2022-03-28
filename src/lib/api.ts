@@ -26,3 +26,14 @@ export async function getJiraIssuesWithJql(jql: string) {
   const data = await res.json();
   return data;
 }
+
+export async function getServerInfo() {
+  const response = await api
+    .asApp()
+    .requestJira(route`/rest/api/3/serverInfo`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  return await response.json();
+}
