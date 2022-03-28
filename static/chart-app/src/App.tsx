@@ -6,6 +6,7 @@ import ScatterPlotContainer from "./containers/ScatterPlotContainer";
 function App() {
   const [plotData, setPlotData]: any = useState([]);
   const [excludedData, setExcludedData] = useState([]);
+  const [baseUrl, setBaseUrl] = useState<string>("");
   const [done, setDone] = useState<boolean>(false);
   const [config, setConfig] = useState<any>(null);
   const [error, setError] = useState<boolean>(false);
@@ -20,8 +21,9 @@ function App() {
       invoke("getIssues", {}).then((res: any) => {
         setPlotData(res.payload.filter((issue: any) => issue.x && issue.y));
         setExcludedData(
-          res.payload.filter((issue: any) => !(issue.x || issue.y))
+          res.payload.filter((issue: any) => !(issue.x && issue.y))
         );
+        setBaseUrl(res.base);
         setError(res.error);
         setDone(res.done);
       });
@@ -43,6 +45,7 @@ function App() {
             />
             <ExcludedList
               data={excludedData}
+              baseUrl={baseUrl}
               xAxis={JSON.parse(config.xAxis).name}
               yAxis={JSON.parse(config.yAxis).name}
               zAxis={JSON.parse(config.zAxis).name}

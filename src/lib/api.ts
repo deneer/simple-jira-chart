@@ -1,7 +1,7 @@
 import api, { route } from "@forge/api";
 
 export async function getJiraFields() {
-  const res = await api.asUser().requestJira(route`/rest/api/3/field`, {
+  const res = await api.asApp().requestJira(route`/rest/api/3/field`, {
     headers: {
       Accept: "application/json",
     },
@@ -11,7 +11,7 @@ export async function getJiraFields() {
 }
 
 export async function getJiraIssuesWithJql(jql: string) {
-  const res = await api.asUser().requestJira(route`/rest/api/3/search`, {
+  const res = await api.asApp().requestJira(route`/rest/api/3/search`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -25,4 +25,15 @@ export async function getJiraIssuesWithJql(jql: string) {
 
   const data = await res.json();
   return data;
+}
+
+export async function getServerInfo() {
+  const response = await api
+    .asApp()
+    .requestJira(route`/rest/api/3/serverInfo`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  return await response.json();
 }
