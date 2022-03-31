@@ -11,20 +11,28 @@ export async function getJiraFields() {
 }
 
 export async function getJiraIssuesWithJql(jql: string) {
-  const res = await api.asApp().requestJira(route`/rest/api/3/search`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-    },
-    body: `{
-      "jql": "${jql.replace(/\"/g, "'")}",
-      "maxResults": 100
-    }`,
-  });
+  let response = [];
 
-  const data = await res.json();
-  return data;
+  for (let i = 0; i < 10; i++) {
+    const res = await api.asApp().requestJira(route`/rest/api/3/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: `{
+        "jql": "${jql.replace(/\"/g, "'")}",
+        "maxResults": 100,
+        "startAt": ${i * 100}
+      }`,
+    });
+    const data = await res.json();
+    response.push(...data.issues);
+
+    if (data.issues.length < 100) break;
+  }
+
+  return response;
 }
 
 export async function getServerInfo() {
