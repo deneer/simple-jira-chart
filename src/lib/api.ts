@@ -19,7 +19,7 @@ export async function getJiraIssuesWithJql(jql: string) {
     },
     body: `{
       "jql": "${jql.replace(/\"/g, "'")}",
-      "maxResults": 200
+      "maxResults": 100
     }`,
   });
 
