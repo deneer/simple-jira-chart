@@ -45,3 +45,4 @@ permissions:
     - read:project-category:jira
     - read:project-version:jira
     - read:jira-work
+    - manage:jira-configuration
