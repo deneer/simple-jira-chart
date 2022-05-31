@@ -45,3 +45,25 @@ export async function getServerInfo() {
     });
   return await response.json();
 }
+
+export async function getProjects() {
+  const response = await api
+    .asApp()
+    .requestJira(route`/rest/api/3/project/search`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  return await response.json();
+}
+
+export async function getAvailableStatuses(projectIdOrKey: string) {
+  const response = await api
+    .asApp()
+    .requestJira(route`/rest/api/3/project/${projectIdOrKey}/statuses`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  return await response.json();
+}
