@@ -44,3 +44,4 @@ permissions:
     - read:issue-type-hierarchy:jira
     - read:project-category:jira
     - read:project-version:jira
+    - read:jira-work
