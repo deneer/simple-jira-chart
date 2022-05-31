@@ -15,14 +15,14 @@ export default () => {
   const [fields, setFields] = useState<Array<any>>(
     async () => await getJiraFields()
   );
-  const [projects, setProjects] = useState<Array<any>>(
+  const [projects, setProjects] = useState<any>(
     async () => await getProjects()
   );
 
   return (
     <MacroConfig>
       <Select name="projectKey" label="Project Key">
-        {projects.map((project) => (
+        {projects.values.map((project) => (
           <Option label={project.key} value={project.key} />
         ))}
       </Select>
