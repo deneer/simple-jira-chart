@@ -4,8 +4,24 @@ import ForgeUI, {
   TextField,
   Select,
   Option,
+  Fragment,
 } from "@forge/ui";
 import { getJiraFields, getProjects } from "../lib/api";
+
+const FieldOptionList = ({ fields }: any) => {
+  return (
+    <Fragment>
+      {fields
+        .filter((item) => item?.schema?.type === "number")
+        .map((field) => (
+          <Option
+            label={field.name}
+            value={JSON.stringify({ name: field.name, key: field.key })}
+          />
+        ))}
+    </Fragment>
+  );
+};
 
 export const defaultConfig = {
   jql: "project = ",
@@ -28,34 +44,13 @@ export default () => {
       </Select>
       <TextField name="jql" label="JQL" defaultValue={defaultConfig.jql} />
       <Select name="xAxis" label="x축 필드">
-        {fields
-          .filter((item) => item?.schema?.type === "number")
-          .map((field) => (
-            <Option
-              label={field.name}
-              value={JSON.stringify({ name: field.name, key: field.key })}
-            />
-          ))}
+        <FieldOptionList fields={fields} />
       </Select>
       <Select name="yAxis" label="y축 필드">
-        {fields
-          .filter((item) => item?.schema?.type === "number")
-          .map((field) => (
-            <Option
-              label={field.name}
-              value={JSON.stringify({ name: field.name, key: field.key })}
-            />
-          ))}
+        <FieldOptionList fields={fields} />
       </Select>
       <Select name="zAxis" label="Size 필드">
-        {fields
-          .filter((item) => item?.schema?.type === "number")
-          .map((field) => (
-            <Option
-              label={field.name}
-              value={JSON.stringify({ name: field.name, key: field.key })}
-            />
-          ))}
+        <FieldOptionList fields={fields} />
       </Select>
     </MacroConfig>
   );
