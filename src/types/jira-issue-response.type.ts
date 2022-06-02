@@ -1,3 +1,5 @@
+import { JiraIssueAccount } from "./jira-issue-account.type";
+
 export type JiraIssueResponse = {
   expand: string;
   id: string;
@@ -54,15 +56,6 @@ export type JiraIssueResponse = {
     };
     creator: JiraIssueAccount;
     reporter: JiraIssueAccount;
+    assignee: JiraIssueAccount | null;
   } & { [k: string]: any };
 } & { [k: string]: any };
-
-type JiraIssueAccount = {
-  self: string;
-  accountId: string;
-  avatarUrls: any;
-  displayName: string;
-  active: boolean;
-  timeZone: string;
-  accountType: "atlassian" | string;
-};
