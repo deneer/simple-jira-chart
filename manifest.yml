@@ -15,7 +15,7 @@ modules:
       handler: index.config
 resources:
   - key: chart-app-key
-    path: static/chart-app/build
+    path: static/chart-app/dist
 
 app:
   id: ari:cloud:ecosystem::app/d759d36a-b7e7-480b-a7fe-de4816e57c1b
@@ -44,3 +44,5 @@ permissions:
     - read:issue-type-hierarchy:jira
     - read:project-category:jira
     - read:project-version:jira
+    - read:jira-work
+    - manage:jira-configuration
