@@ -1,4 +1,5 @@
 import api, { route } from "@forge/api";
+import { JiraIssueResponse } from "src/types/jira-issue-response.type";
 
 export async function getJiraFields() {
   const res = await api.asApp().requestJira(route`/rest/api/3/field`, {
@@ -10,7 +11,9 @@ export async function getJiraFields() {
   return data;
 }
 
-export async function getJiraIssuesWithJql(jql: string) {
+export async function getJiraIssuesWithJql(
+  jql: string
+): Promise<JiraIssueResponse[]> {
   let response = [];
 
   for (let i = 0; i < 10; i++) {
