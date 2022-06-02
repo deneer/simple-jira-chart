@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@forge/bridge": "^2.3.0",
+    "@visx/axis": "^2.10.0",
     "@visx/event": "^2.6.0",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
