@@ -1,14 +1,9 @@
-import { atom, Provider, useAtom, useAtomValue } from "jotai";
 import { Suspense, useEffect } from "react";
 import ExcludedListContainer from "./containers/excluded-list.container";
 import ScatterPlotContainer from "./containers/scatter-plot.container";
-import { jiraConfigAtom, jiraIssuesAtom } from "./store/atoms/jira.atom";
 import { getIssues, getJiraContext } from "./util/jira-util";
 
 function App() {
-  const config = useAtomValue(jiraConfigAtom);
-  const issues = useAtomValue(jiraIssuesAtom);
-
   console.log(issues);
   console.log(config);
 
