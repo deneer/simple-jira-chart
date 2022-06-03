@@ -46,3 +46,6 @@ permissions:
     - read:project-version:jira
     - read:jira-work
     - manage:jira-configuration
+  external:
+    fonts:
+      - "https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
