@@ -3,7 +3,7 @@ import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { Circle } from "@visx/shape";
-import { useTooltip } from "@visx/tooltip";
+import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import ScatterTooltip from "./scatter-tooltip";
@@ -18,10 +18,23 @@ export type ScatterPlotProps = {
   // TODO: remove width and height regarding responsive style as confluence plugin
   width: number;
   height: number;
+  xAxis: string;
+  yAxis: string;
+  sizeAxis: string;
+  baseUrl: string;
   data: ChartPluginResponse[];
 };
 
-function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
+function ScatterPlot({
+  margin,
+  width,
+  height,
+  xAxis,
+  yAxis,
+  sizeAxis,
+  baseUrl,
+  data,
+}: ScatterPlotProps) {
   /**
    * Set chart width and chart height regarding width and margins
    */
@@ -140,6 +153,9 @@ function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
           <ScatterTooltip
             left={tooltipLeft}
             top={tooltipTop}
+            xAxis={xAxis}
+            yAxis={yAxis}
+            sizeAxis={sizeAxis}
             data={tooltipData}
           />
         )}
