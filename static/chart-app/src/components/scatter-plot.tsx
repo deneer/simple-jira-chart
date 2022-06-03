@@ -3,7 +3,7 @@ import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { Circle } from "@visx/shape";
-import { useTooltip } from "@visx/tooltip";
+import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import ScatterTooltip from "./scatter-tooltip";
@@ -18,10 +18,23 @@ export type ScatterPlotProps = {
   // TODO: remove width and height regarding responsive style as confluence plugin
   width: number;
   height: number;
+  xAxis: string;
+  yAxis: string;
+  sizeAxis: string;
+  baseUrl: string;
   data: ChartPluginResponse[];
 };
 
-function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
+function ScatterPlot({
+  margin,
+  width,
+  height,
+  xAxis,
+  yAxis,
+  sizeAxis,
+  baseUrl,
+  data,
+}: ScatterPlotProps) {
   /**
    * Set chart width and chart height regarding width and margins
    */
@@ -92,18 +105,13 @@ function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
       if (tooltipTimeout) clearTimeout(tooltipTimeout);
       if (!svgRef.current) return;
 
-      const currentPoint = localPoint(svgRef.current, event);
+      const currentPoint = localPoint(svgRef.current, event) || { x: 0, y: 0 };
 
-      console.log(currentPoint);
-
-      if (!currentPoint) return;
-      else {
-        showTooltip({
-          tooltipLeft: currentPoint.x,
-          tooltipTop: currentPoint.y,
-          tooltipData: scatterData,
-        });
-      }
+      showTooltip({
+        tooltipLeft: currentPoint.x,
+        tooltipTop: currentPoint.y,
+        tooltipData: scatterData,
+      });
     },
     [xScale, yScale, showTooltip]
   );
@@ -115,7 +123,7 @@ function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
   }, [hideTooltip]);
 
   return (
-    <div>
+    <div className="relative">
       <svg width={width} height={height} ref={svgRef}>
         <rect width={width} height={height} rx={10} fill="#f4f4f4" />
         <Group left={margin.left} top={margin.top}>
@@ -143,8 +151,11 @@ function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
         tooltipLeft != null &&
         tooltipTop != null && (
           <ScatterTooltip
-            left={tooltipLeft + 10}
-            top={tooltipTop + 10}
+            left={tooltipLeft}
+            top={tooltipTop}
+            xAxis={xAxis}
+            yAxis={yAxis}
+            sizeAxis={sizeAxis}
             data={tooltipData}
           />
         )}
