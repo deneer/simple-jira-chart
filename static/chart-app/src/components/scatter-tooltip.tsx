@@ -33,7 +33,7 @@ function ScatterTooltip({
         padding: 0,
         boxShadow: "none",
         overflow: "hidden",
-        opacity: "0.9",
+        opacity: "0.8",
       }}
     >
       <div className={`flex flex-col ${issueColor} p-2 max-w-md`}>
