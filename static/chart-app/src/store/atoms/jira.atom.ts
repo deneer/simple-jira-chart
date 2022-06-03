@@ -8,3 +8,7 @@ export const jiraIssuesAtom = atom<any>(async (get) => getIssues());
 export const filteredJiraIssuesAtom = atom((get) =>
   get(jiraIssuesAtom).payload.filter((issue: any) => issue.x && issue.y)
 );
+
+export const excludedJiraIssuesAtom = atom((get) =>
+  get(jiraIssuesAtom).payload.filter((issue: any) => !(issue.x && issue.y))
+);
