@@ -7,6 +7,8 @@ import { Circle } from "@visx/shape";
 import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
+import { JiraStatusKey } from "../types/jira-status-key.enum";
+import { getHexColorWithJiraStatusKey } from "../util/issue-color-util";
 import ScatterTooltip from "./scatter-tooltip";
 
 export type ScatterPlotProps = {
@@ -138,7 +140,9 @@ function ScatterPlot({
                 cx={xScale(scatter.x)}
                 cy={yScale(scatter.y)}
                 r={scatter.size}
-                fill="purple"
+                fill={getHexColorWithJiraStatusKey(
+                  scatter.status?.statusCategory.key as JiraStatusKey
+                )}
                 opacity={0.6}
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
                 onMouseLeave={handleMouseLeave}
