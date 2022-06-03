@@ -1,6 +1,6 @@
 import { TooltipWithBounds, defaultStyles } from "@visx/tooltip";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
-import { JiraStatusColor } from "../types/jira-status-color.enum";
+import { JiraStatusTailwindColor } from "../types/jira-status-color.enum";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
 import { getTailwindColorWithJiraStatusKey } from "../util/issue-color-util";
 
@@ -21,7 +21,7 @@ function ScatterTooltip({
   sizeAxis,
   data,
 }: ScatterTooltipProps) {
-  const issueColor: JiraStatusColor = getTailwindColorWithJiraStatusKey(
+  const issueColor: JiraStatusTailwindColor = getTailwindColorWithJiraStatusKey(
     data.status?.statusCategory.key as JiraStatusKey
   );
   return (
@@ -33,7 +33,7 @@ function ScatterTooltip({
         padding: 0,
         boxShadow: "none",
         overflow: "hidden",
-        opacity: "0.9",
+        opacity: "0.8",
       }}
     >
       <div className={`flex flex-col ${issueColor} p-2 max-w-md`}>
@@ -46,14 +46,24 @@ function ScatterTooltip({
             {yAxis}: {data.y}
           </li>
           <li className="mt-1">
-            {sizeAxis}: {data.size}
+            {sizeAxis}:{" "}
+            {data.size || <span className="text-red-400">No Value</span>}
           </li>
           <li className="mt-1">
             Assignee:{" "}
-            {data.assignee ? data.assignee.displayName : "Not assigned"}
+            {data.assignee ? (
+              data.assignee.displayName
+            ) : (
+              <span className="text-red-400">Not assigned</span>
+            )}
           </li>
           <li className="mt-1">
-            Status: {data.status ? data.status.name : "No Status"}
+            Status:{" "}
+            {data.status ? (
+              data.status.name
+            ) : (
+              <span className="text-red-400">No Status</span>
+            )}
           </li>
         </ul>
       </div>

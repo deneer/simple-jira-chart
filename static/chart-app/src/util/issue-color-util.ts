@@ -1,22 +1,46 @@
-import { JiraStatusColor } from "../types/jira-status-color.enum";
+import {
+  JiraStatusHexColor,
+  JiraStatusTailwindColor,
+} from "../types/jira-status-color.enum";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
 
 export function getTailwindColorWithJiraStatusKey(
   jiraStatusKey: JiraStatusKey | undefined
-): JiraStatusColor {
-  let issueColor: JiraStatusColor;
+): JiraStatusTailwindColor {
+  let issueColor: JiraStatusTailwindColor;
   switch (jiraStatusKey) {
     case JiraStatusKey.NEW:
-      issueColor = JiraStatusColor.TODO_COLOR;
+      issueColor = JiraStatusTailwindColor.TODO_COLOR;
       break;
     case JiraStatusKey.INDETERMINATE:
-      issueColor = JiraStatusColor.IN_PROGRESS_COLOR;
+      issueColor = JiraStatusTailwindColor.IN_PROGRESS_COLOR;
       break;
     case JiraStatusKey.DONE:
-      issueColor = JiraStatusColor.DONE_COLOR;
+      issueColor = JiraStatusTailwindColor.DONE_COLOR;
       break;
     default:
-      issueColor = JiraStatusColor.DEFAULT_COLOR;
+      issueColor = JiraStatusTailwindColor.DEFAULT_COLOR;
+      break;
+  }
+  return issueColor;
+}
+
+export function getHexColorWithJiraStatusKey(
+  jiraStatusKey: JiraStatusKey | undefined
+): JiraStatusHexColor {
+  let issueColor: JiraStatusHexColor;
+  switch (jiraStatusKey) {
+    case JiraStatusKey.NEW:
+      issueColor = JiraStatusHexColor.TODO_COLOR;
+      break;
+    case JiraStatusKey.INDETERMINATE:
+      issueColor = JiraStatusHexColor.IN_PROGRESS_COLOR;
+      break;
+    case JiraStatusKey.DONE:
+      issueColor = JiraStatusHexColor.DONE_COLOR;
+      break;
+    default:
+      issueColor = JiraStatusHexColor.DEFAULT_COLOR;
       break;
   }
   return issueColor;
