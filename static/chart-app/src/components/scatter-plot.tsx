@@ -1,5 +1,6 @@
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { localPoint } from "@visx/event";
+import { GlyphTriangle } from "@visx/glyph";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { Circle } from "@visx/shape";
@@ -129,21 +130,37 @@ function ScatterPlot({
         <Group left={margin.left} top={margin.top}>
           <AxisBottom scale={xScale} top={chartHeight} />
           <AxisLeft scale={yScale} />
-          {data.map((scatter, index) => (
-            <Circle
-              key={`scatter-${scatter.issueKey}-${index}`}
-              className="dot"
-              cx={xScale(scatter.x)}
-              cy={yScale(scatter.y)}
-              r={scatter.size}
-              fill="purple"
-              opacity={0.6}
-              onMouseMove={(e) => handleMouseMove(e, scatter)}
-              onMouseLeave={handleMouseLeave}
-              onTouchMove={(e) => handleMouseMove(e, scatter)}
-              onTouchEnd={handleMouseLeave}
-            />
-          ))}
+          {data.map((scatter, index) =>
+            scatter.size ? (
+              <Circle
+                key={`scatter-${scatter.issueKey}-${index}`}
+                className="dot"
+                cx={xScale(scatter.x)}
+                cy={yScale(scatter.y)}
+                r={scatter.size}
+                fill="purple"
+                opacity={0.6}
+                onMouseMove={(e) => handleMouseMove(e, scatter)}
+                onMouseLeave={handleMouseLeave}
+                onTouchMove={(e) => handleMouseMove(e, scatter)}
+                onTouchEnd={handleMouseLeave}
+              />
+            ) : (
+              <GlyphTriangle
+                key={`scatter-${scatter.issueKey}-${index}`}
+                className="triangle"
+                cx={xScale(scatter.x)}
+                cy={yScale(scatter.y)}
+                r={3}
+                fill="red"
+                opacity={0.6}
+                onMouseMove={(e) => handleMouseMove(e, scatter)}
+                onMouseLeave={handleMouseLeave}
+                onTouchMove={(e) => handleMouseMove(e, scatter)}
+                onTouchEnd={handleMouseLeave}
+              />
+            )
+          )}
         </Group>
       </svg>
       {tooltipOpen &&
