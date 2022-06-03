@@ -92,12 +92,11 @@ function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
       if (tooltipTimeout) clearTimeout(tooltipTimeout);
       if (!svgRef.current) return;
 
-      const containerX = "clientX" in event ? event.clientX : 0;
-      const containerY = "clientY" in event ? event.clientY : 0;
+      const currentPoint = localPoint(svgRef.current, event) || { x: 0, y: 0 };
 
       showTooltip({
-        tooltipLeft: containerX,
-        tooltipTop: containerY,
+        tooltipLeft: currentPoint.x,
+        tooltipTop: currentPoint.y,
         tooltipData: scatterData,
       });
     },
@@ -111,7 +110,7 @@ function ScatterPlot({ margin, width, height, data }: ScatterPlotProps) {
   }, [hideTooltip]);
 
   return (
-    <div>
+    <div className="relative">
       <svg width={width} height={height} ref={svgRef}>
         <rect width={width} height={height} rx={10} fill="#f4f4f4" />
         <Group left={margin.left} top={margin.top}>
