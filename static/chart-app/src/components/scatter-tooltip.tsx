@@ -46,7 +46,7 @@ function ScatterTooltip({
             {yAxis}: {data.y}
           </li>
           <li className="mt-1">
-            {sizeAxis}: {data.size}
+            {sizeAxis}: {data.size || "No Value"}
           </li>
           <li className="mt-1">
             Assignee:{" "}
