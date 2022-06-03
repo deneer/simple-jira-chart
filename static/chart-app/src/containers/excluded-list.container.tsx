@@ -14,9 +14,9 @@ function ExcludedListContainer() {
     <ExcludedList
       data={excludedIssuesData}
       baseUrl={jiraConfig.siteUrl}
-      xAxis={jiraConfig.extension.config.xAxis.name}
-      yAxis={jiraConfig.extension.config.yAxis.name}
-      sizeAxis={jiraConfig.extension.config.zAxis.name}
+      xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}
+      yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
+      sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
     />
   );
 }
