@@ -33,8 +33,9 @@ function ExcludedList({
                 />
               </Disclosure.Button>
               <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                {data.map((issue) => (
+                {data.map((issue, index) => (
                   <ListItem
+                    key={`excluded-issue-${issue.issueKey}`}
                     x={issue.x}
                     y={issue.y}
                     size={issue.size}
