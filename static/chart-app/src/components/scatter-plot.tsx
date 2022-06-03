@@ -1,3 +1,4 @@
+import { router } from "@forge/bridge";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { localPoint } from "@visx/event";
 import { GlyphTriangle } from "@visx/glyph";
@@ -144,8 +145,12 @@ function ScatterPlot({
                   scatter.status?.statusCategory.key as JiraStatusKey
                 )}
                 opacity={0.6}
+                cursor="pointer"
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
                 onMouseLeave={handleMouseLeave}
+                onClick={() =>
+                  router.open(`${baseUrl}/browse/${scatter.issueKey}`)
+                }
                 onTouchMove={(e) => handleMouseMove(e, scatter)}
                 onTouchEnd={handleMouseLeave}
               />
@@ -158,8 +163,12 @@ function ScatterPlot({
                 r={3}
                 fill="red"
                 opacity={0.6}
+                cursor="pointer"
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
                 onMouseLeave={handleMouseLeave}
+                onClick={() =>
+                  router.open(`${baseUrl}/browse/${scatter.issueKey}`)
+                }
                 onTouchMove={(e) => handleMouseMove(e, scatter)}
                 onTouchEnd={handleMouseLeave}
               />
