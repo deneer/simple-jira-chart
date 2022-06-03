@@ -1,6 +1,6 @@
 import { TooltipWithBounds, defaultStyles } from "@visx/tooltip";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
-import { JiraStatusColor } from "../types/jira-status-color.enum";
+import { JiraStatusTailwindColor } from "../types/jira-status-color.enum";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
 import { getTailwindColorWithJiraStatusKey } from "../util/issue-color-util";
 
@@ -21,7 +21,7 @@ function ScatterTooltip({
   sizeAxis,
   data,
 }: ScatterTooltipProps) {
-  const issueColor: JiraStatusColor = getTailwindColorWithJiraStatusKey(
+  const issueColor: JiraStatusTailwindColor = getTailwindColorWithJiraStatusKey(
     data.status?.statusCategory.key as JiraStatusKey
   );
   return (
