@@ -46,3 +46,6 @@ permissions:
     - read:project-version:jira
     - read:jira-work
     - manage:jira-configuration
+  content:
+    styles:
+      - "unsafe-inline"
