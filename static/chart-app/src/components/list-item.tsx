@@ -22,14 +22,14 @@ function ListItem({
   sizeAxis,
 }: ListItemProps) {
   return (
-    <div className="flex flex-col mt-2 mb-2 bg-gray-50 p-4 rounded-md">
+    <div className="flex flex-col mt-2 mb-2 bg-gray-50 p-4 rounded-md ">
       <div
         className="text-lg font-semibold mb-2 cursor-pointer"
         onClick={() => router.open(`${baseUrl}/browse/${issueKey}`)}
       >
         {summary}
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row overflow-auto">
         {x ? (
           <div className="mr-2 bg-green-200 p-1 rounded-sm">
             {xAxis}: {x}
