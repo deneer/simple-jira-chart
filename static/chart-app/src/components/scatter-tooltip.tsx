@@ -46,14 +46,24 @@ function ScatterTooltip({
             {yAxis}: {data.y}
           </li>
           <li className="mt-1">
-            {sizeAxis}: {data.size || "No Value"}
+            {sizeAxis}:{" "}
+            {data.size || <span className="text-red-400">No Value</span>}
           </li>
           <li className="mt-1">
             Assignee:{" "}
-            {data.assignee ? data.assignee.displayName : "Not assigned"}
+            {data.assignee ? (
+              data.assignee.displayName
+            ) : (
+              <span className="text-red-400">Not assigned</span>
+            )}
           </li>
           <li className="mt-1">
-            Status: {data.status ? data.status.name : "No Status"}
+            Status:{" "}
+            {data.status ? (
+              data.status.name
+            ) : (
+              <span className="text-red-400">No Status</span>
+            )}
           </li>
         </ul>
       </div>
