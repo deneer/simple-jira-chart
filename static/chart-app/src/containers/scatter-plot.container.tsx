@@ -17,7 +17,7 @@ function ScatterPlotContainer() {
   return (
     <div>
       <ScatterPlot
-        margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
+        margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
         width={600}
         height={400}
         xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}

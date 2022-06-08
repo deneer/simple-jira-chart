@@ -130,8 +130,8 @@ function ScatterPlot({
       <svg width={width} height={height} ref={svgRef}>
         <rect width={width} height={height} rx={10} fill="#f4f4f4" />
         <Group left={margin.left} top={margin.top}>
-          <AxisBottom scale={xScale} top={chartHeight} />
-          <AxisLeft scale={yScale} />
+          <AxisBottom scale={xScale} top={chartHeight} label={xAxis} />
+          <AxisLeft scale={yScale} label={yAxis} />
           {data.map((scatter, index) =>
             scatter.size ? (
               <Circle
