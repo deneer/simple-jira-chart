@@ -4,8 +4,8 @@ function getRandomFloat(min: number, max: number) {
 
 export function getRandomJitter(domain: [number, number]): number {
   const randomJitter = getRandomFloat(
-    -((domain[1] - domain[0]) / 50),
-    (domain[1] - domain[0]) / 50
+    -((domain[1] - domain[0]) / 20),
+    (domain[1] - domain[0]) / 20
   );
 
   return randomJitter;
