@@ -9,6 +9,7 @@ import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
+import { JitteredIssue } from "../types/jittered-issue.type";
 import { getHexColorWithJiraStatusKey } from "../util/issue-color-util";
 import ScatterTooltip from "./scatter-tooltip";
 
@@ -25,8 +26,10 @@ export type ScatterPlotProps = {
   xAxis: string;
   yAxis: string;
   sizeAxis: string;
+  xDomain: [number, number];
+  yDomain: [number, number];
   baseUrl: string;
-  data: ChartPluginResponse[];
+  data: JitteredIssue[];
 };
 
 function ScatterPlot({
@@ -36,6 +39,8 @@ function ScatterPlot({
   xAxis,
   yAxis,
   sizeAxis,
+  xDomain,
+  yDomain,
   baseUrl,
   data,
 }: ScatterPlotProps) {
@@ -52,10 +57,7 @@ function ScatterPlot({
   const xScale = useMemo(
     () =>
       scaleLinear<number>({
-        domain: [
-          Math.min(...data.map((datum) => datum.x)),
-          Math.max(...data.map((datum) => datum.x)),
-        ],
+        domain: xDomain,
         range: [0, chartWidth],
         clamp: true,
       }),
@@ -65,10 +67,7 @@ function ScatterPlot({
   const yScale = useMemo(
     () =>
       scaleLinear<number>({
-        domain: [
-          Math.min(...data.map((datum) => datum.y)),
-          Math.max(...data.map((datum) => datum.y)),
-        ],
+        domain: yDomain,
         range: [chartHeight, 0],
         clamp: true,
       }),
@@ -138,8 +137,8 @@ function ScatterPlot({
               <Circle
                 key={`scatter-${scatter.issueKey}-${index}`}
                 className="dot"
-                cx={xScale(scatter.x)}
-                cy={yScale(scatter.y)}
+                cx={xScale(scatter.jitteredX)}
+                cy={yScale(scatter.jitteredY)}
                 r={scatter.size}
                 fill={getHexColorWithJiraStatusKey(
                   scatter.status?.statusCategory.key as JiraStatusKey
@@ -158,8 +157,8 @@ function ScatterPlot({
               <GlyphTriangle
                 key={`scatter-${scatter.issueKey}-${index}`}
                 className="triangle"
-                cx={xScale(scatter.x)}
-                cy={yScale(scatter.y)}
+                cx={xScale(scatter.jitteredX)}
+                cy={yScale(scatter.jitteredY)}
                 r={3}
                 fill="red"
                 opacity={0.6}

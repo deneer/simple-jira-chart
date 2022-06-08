@@ -2,13 +2,17 @@ import { useAtomValue } from "jotai";
 import React from "react";
 import ScatterPlot from "../components/scatter-plot";
 import {
-  filteredJiraIssuesAtom,
+  jitteredJiraIssuesAtom,
   jiraConfigAtom,
+  jiraIssuesXDomainAtom,
+  jiraIssuesYDomainAtom,
 } from "../store/atoms/jira.atom";
 
 function ScatterPlotContainer() {
-  const issueData = useAtomValue(filteredJiraIssuesAtom);
+  const issueData = useAtomValue(jitteredJiraIssuesAtom);
   const jiraConfig = useAtomValue(jiraConfigAtom);
+  const xDomain = useAtomValue(jiraIssuesXDomainAtom);
+  const yDomain = useAtomValue(jiraIssuesYDomainAtom);
 
   return (
     <div>
@@ -20,6 +24,8 @@ function ScatterPlotContainer() {
         yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
         sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
         baseUrl={jiraConfig.siteUrl}
+        xDomain={xDomain}
+        yDomain={yDomain}
         data={issueData}
       />
     </div>
