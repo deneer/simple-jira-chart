@@ -54,17 +54,19 @@ export const jitteredJiraIssuesAtom = atom<JitteredIssue[]>((get) => {
     .map((key) => indicesByData[key])
     .reduce((acc, curr) => [...acc, ...curr], []);
 
-  const jitteredIssues = notExcludedIssues.map((issue, index) => {
-    if (overlapIndices.find((el) => el === index)) {
-      return {
-        ...issue,
-        jitteredX: issue.x + getRandomJitter(xDomain),
-        jitteredY: issue.y + getRandomJitter(yDomain),
-      };
-    } else {
-      return { ...issue, jitteredX: issue.x, jitteredY: issue.y };
-    }
-  });
+  const jitteredIssues = notExcludedIssues
+    .map((issue, index) => {
+      if (overlapIndices.find((el) => el === index)) {
+        return {
+          ...issue,
+          jitteredX: issue.x + getRandomJitter(xDomain),
+          jitteredY: issue.y + getRandomJitter(yDomain),
+        };
+      } else {
+        return { ...issue, jitteredX: issue.x, jitteredY: issue.y };
+      }
+    })
+    .sort((a, b) => b.size - a.size);
 
   return jitteredIssues;
 });
