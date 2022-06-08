@@ -157,8 +157,8 @@ function ScatterPlot({
               <GlyphTriangle
                 key={`scatter-${scatter.issueKey}-${index}`}
                 className="triangle"
-                cx={xScale(scatter.jitteredX)}
-                cy={yScale(scatter.jitteredY)}
+                left={xScale(scatter.jitteredX)}
+                top={yScale(scatter.jitteredY)}
                 r={3}
                 fill="red"
                 opacity={0.6}
