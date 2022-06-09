@@ -6,6 +6,7 @@ import {
   jiraConfigAtom,
   jiraIssuesXDomainAtom,
   jiraIssuesYDomainAtom,
+  jiraIssuesSizeDomainAtom,
 } from "../store/atoms/jira.atom";
 
 function ScatterPlotContainer() {
@@ -13,6 +14,7 @@ function ScatterPlotContainer() {
   const jiraConfig = useAtomValue(jiraConfigAtom);
   const xDomain = useAtomValue(jiraIssuesXDomainAtom);
   const yDomain = useAtomValue(jiraIssuesYDomainAtom);
+  const sizeDomain = useAtomValue(jiraIssuesSizeDomainAtom);
 
   return (
     <div>
@@ -26,6 +28,7 @@ function ScatterPlotContainer() {
         baseUrl={jiraConfig.siteUrl}
         xDomain={xDomain}
         yDomain={yDomain}
+        sizeDomain={sizeDomain}
         data={issueData}
       />
     </div>
