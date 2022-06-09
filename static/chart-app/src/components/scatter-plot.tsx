@@ -130,7 +130,7 @@ function ScatterPlot({
   const handleMouseLeave = useCallback(() => {
     tooltipTimeout = window.setTimeout(() => {
       hideTooltip();
-    }, 100);
+    }, 10);
   }, [hideTooltip]);
 
   return (
