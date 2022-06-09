@@ -35,6 +35,14 @@ export const jiraIssuesYDomainAtom = atom<[number, number]>((get) => {
   ];
 });
 
+export const jiraIssuesSizeDomainAtom = atom<[number, number]>((get) => {
+  const jiraIssues = get(filteredJiraIssuesAtom);
+  return [
+    Math.min(...jiraIssues.map((issue) => issue.size)),
+    Math.max(...jiraIssues.map((issue) => issue.size)),
+  ];
+});
+
 export const jitteredJiraIssuesAtom = atom<JitteredIssue[]>((get) => {
   const notExcludedIssues = get(filteredJiraIssuesAtom);
   const xDomain = get(jiraIssuesXDomainAtom);

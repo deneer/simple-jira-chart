@@ -28,6 +28,7 @@ export type ScatterPlotProps = {
   sizeAxis: string;
   xDomain: [number, number];
   yDomain: [number, number];
+  sizeDomain: [number, number];
   baseUrl: string;
   data: JitteredIssue[];
 };
@@ -41,6 +42,7 @@ function ScatterPlot({
   sizeAxis,
   xDomain,
   yDomain,
+  sizeDomain,
   baseUrl,
   data,
 }: ScatterPlotProps) {
@@ -61,7 +63,7 @@ function ScatterPlot({
         range: [0, chartWidth],
         clamp: true,
       }),
-    [width]
+    [xDomain, width]
   );
 
   const yScale = useMemo(
@@ -71,7 +73,13 @@ function ScatterPlot({
         range: [chartHeight, 0],
         clamp: true,
       }),
-    [height]
+    [yDomain, height]
+  );
+
+  const sizeScale = useMemo(
+    () =>
+      scaleLinear<number>({ domain: sizeDomain, range: [5, sizeDomain[1]] }),
+    [sizeDomain]
   );
 
   /**
@@ -139,7 +147,7 @@ function ScatterPlot({
                 className="dot"
                 cx={xScale(scatter.jitteredX)}
                 cy={yScale(scatter.jitteredY)}
-                r={scatter.size}
+                r={sizeScale(scatter.size)}
                 fill={getHexColorWithJiraStatusKey(
                   scatter.status?.statusCategory.key as JiraStatusKey
                 )}
