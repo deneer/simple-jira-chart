@@ -36,7 +36,7 @@ function ScatterTooltip({
         opacity: "0.8",
       }}
     >
-      <div className={`flex flex-col ${issueColor} p-2 max-w-md`}>
+      <div className={`flex flex-col ${issueColor} p-2 max-w-sm`}>
         <h2 className="text-lg font-bold text-gray-700">{data.summary}</h2>
         <ul className="list-disc ml-4">
           <li className="mt-1">

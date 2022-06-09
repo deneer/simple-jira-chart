@@ -3,7 +3,7 @@ import ScatterPlotContainer from "./containers/scatter-plot.container";
 
 function App() {
   return (
-    <div className="flex flex-col w-full items-center mr-auto ml-auto">
+    <div className="flex flex-col w-[600px] items-center mr-auto ml-auto">
       <ScatterPlotContainer />
       <ExcludedListContainer />
     </div>
