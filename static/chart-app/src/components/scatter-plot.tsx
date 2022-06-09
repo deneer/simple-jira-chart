@@ -63,7 +63,7 @@ function ScatterPlot({
         range: [0, chartWidth],
         clamp: true,
       }),
-    [width]
+    [xDomain, width]
   );
 
   const yScale = useMemo(
@@ -73,7 +73,7 @@ function ScatterPlot({
         range: [chartHeight, 0],
         clamp: true,
       }),
-    [height]
+    [yDomain, height]
   );
 
   const sizeScale = useMemo(
