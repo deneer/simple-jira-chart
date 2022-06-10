@@ -151,6 +151,8 @@ function ScatterPlot({
                 fill={getHexColorWithJiraStatusKey(
                   scatter.status?.statusCategory.key as JiraStatusKey
                 )}
+                stroke="black"
+                strokeWidth={1}
                 opacity={0.6}
                 cursor="pointer"
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
@@ -169,6 +171,8 @@ function ScatterPlot({
                 top={yScale(scatter.jitteredY)}
                 r={3}
                 fill="red"
+                stroke="black"
+                strokeWidth={1}
                 opacity={0.6}
                 cursor="pointer"
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
