@@ -134,7 +134,7 @@ function ScatterPlot({
   }, [hideTooltip]);
 
   return (
-    <div className="relative">
+    <>
       <svg width={width} height={height} ref={svgRef}>
         <rect width={width} height={height} rx={10} fill="#f9fafb" />
         <Group left={margin.left} top={margin.top}>
@@ -200,7 +200,7 @@ function ScatterPlot({
             data={tooltipData}
           />
         )}
-    </div>
+    </>
   );
 }
 
