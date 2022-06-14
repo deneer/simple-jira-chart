@@ -9,6 +9,7 @@ import {
   jiraIssuesYDomainAtom,
   jiraIssuesSizeDomainAtom,
 } from "../store/atoms/jira.atom";
+import { opacityAtom } from "../store/atoms/scatter-plot.atom";
 
 function ScatterPlotContainer() {
   const issueData = useAtomValue(jitteredJiraIssuesAtom);
@@ -16,6 +17,7 @@ function ScatterPlotContainer() {
   const xDomain = useAtomValue(jiraIssuesXDomainAtom);
   const yDomain = useAtomValue(jiraIssuesYDomainAtom);
   const sizeDomain = useAtomValue(jiraIssuesSizeDomainAtom);
+  const opacityValue = useAtomValue(opacityAtom);
 
   return (
     <div className="relative w-full aspect-[4/3]">
@@ -33,6 +35,7 @@ function ScatterPlotContainer() {
             xDomain={xDomain}
             yDomain={yDomain}
             sizeDomain={sizeDomain}
+            opacity={opacityValue}
             data={issueData}
           />
         )}
