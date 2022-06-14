@@ -1,16 +1,15 @@
 import { router } from "@forge/bridge";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { localPoint } from "@visx/event";
-import { GlyphTriangle } from "@visx/glyph";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
-import { Circle } from "@visx/shape";
-import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
+import { useTooltip } from "@visx/tooltip";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
 import { JitteredIssue } from "../types/jittered-issue.type";
 import { getHexColorWithJiraStatusKey } from "../util/issue-color-util";
+import Scatter from "./scatter";
 import ScatterTooltip from "./scatter-tooltip";
 
 export type ScatterPlotProps = {
@@ -142,51 +141,28 @@ function ScatterPlot({
         <Group left={margin.left} top={margin.top}>
           <AxisBottom scale={xScale} top={chartHeight} label={xAxis} />
           <AxisLeft scale={yScale} label={yAxis} />
-          {data.map((scatter, index) =>
-            scatter.size ? (
-              <Circle
-                key={`scatter-${scatter.issueKey}-${index}`}
-                className="dot"
-                cx={xScale(scatter.jitteredX)}
-                cy={yScale(scatter.jitteredY)}
-                r={sizeScale(scatter.size)}
-                fill={getHexColorWithJiraStatusKey(
-                  scatter.status?.statusCategory.key as JiraStatusKey
-                )}
-                stroke="black"
-                strokeWidth={1}
-                opacity={opacity}
-                cursor="pointer"
-                onMouseMove={(e) => handleMouseMove(e, scatter)}
-                onMouseLeave={handleMouseLeave}
-                onClick={() =>
-                  router.open(`${baseUrl}/browse/${scatter.issueKey}`)
-                }
-                onTouchMove={(e) => handleMouseMove(e, scatter)}
-                onTouchEnd={handleMouseLeave}
-              />
-            ) : (
-              <GlyphTriangle
-                key={`scatter-${scatter.issueKey}-${index}`}
-                className="triangle"
-                left={xScale(scatter.jitteredX)}
-                top={yScale(scatter.jitteredY)}
-                r={3}
-                fill="red"
-                stroke="black"
-                strokeWidth={1}
-                opacity={opacity}
-                cursor="pointer"
-                onMouseMove={(e) => handleMouseMove(e, scatter)}
-                onMouseLeave={handleMouseLeave}
-                onClick={() =>
-                  router.open(`${baseUrl}/browse/${scatter.issueKey}`)
-                }
-                onTouchMove={(e) => handleMouseMove(e, scatter)}
-                onTouchEnd={handleMouseLeave}
-              />
-            )
-          )}
+          {data.map((scatter, index) => (
+            <Scatter
+              key={`scatter-${scatter.issueKey}-${index}`}
+              x={xScale(scatter.jitteredX)}
+              y={yScale(scatter.jitteredY)}
+              size={sizeScale(scatter.size)}
+              fill={getHexColorWithJiraStatusKey(
+                scatter.status?.statusCategory.key as JiraStatusKey
+              )}
+              stroke="black"
+              strokeWidth={1}
+              opacity={opacity}
+              cursor="pointer"
+              onMouseMove={(e) => handleMouseMove(e, scatter)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() =>
+                router.open(`${baseUrl}/browse/${scatter.issueKey}`)
+              }
+              onTouchMove={(e) => handleMouseMove(e, scatter)}
+              onTouchEnd={handleMouseLeave}
+            />
+          ))}
         </Group>
       </svg>
       {tooltipOpen &&
