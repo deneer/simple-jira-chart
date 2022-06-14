@@ -9,7 +9,7 @@ export function OpacityRangeSliderContainer() {
     setOpacity(+e.target.value);
 
   return (
-    <div className="w-full flex justify-between items-center mt-2">
+    <div className="w-full flex justify-between items-center mt-2 bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
       <p className="mr-4 w-24">투명도 조절</p>
       <RangeSlider
         value={opacity}
