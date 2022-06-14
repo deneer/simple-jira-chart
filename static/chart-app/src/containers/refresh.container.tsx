@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { resetIssuesAtom, resetJitterAtom } from "../store/atoms/jira.atom";
 
-function RefreshJitterContainer() {
+function RefreshContainer() {
   const [reset, resetJitter] = useAtom(resetJitterAtom);
   const [refresh, refreshIssues] = useAtom(resetIssuesAtom);
   return (
@@ -22,4 +22,4 @@ function RefreshJitterContainer() {
   );
 }
 
-export default RefreshJitterContainer;
+export default RefreshContainer;
