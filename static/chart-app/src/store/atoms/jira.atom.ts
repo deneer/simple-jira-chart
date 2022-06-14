@@ -5,11 +5,14 @@ import { JitteredIssue } from "../../types/jittered-issue.type";
 import { getIssues, getJiraContext } from "../../util/jira-util";
 import { getRandomJitter } from "../../util/preprocess-util";
 
+export const resetIssuesAtom = atom<boolean>(false);
+
 export const jiraConfigAtom = atom<any>(async (get) => getJiraContext());
 
-export const jiraIssuesAtom = atom<Promise<BridgeResponse>>(async (get) =>
-  getIssues()
-);
+export const jiraIssuesAtom = atom<Promise<BridgeResponse>>(async (get) => {
+  get(resetIssuesAtom);
+  return getIssues();
+});
 
 export const filteredJiraIssuesAtom = atom<ChartPluginResponse[]>((get) =>
   get(jiraIssuesAtom).payload.filter((issue) => issue.x && issue.y)
