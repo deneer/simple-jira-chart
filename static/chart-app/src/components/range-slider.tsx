@@ -23,7 +23,7 @@ export function RangeSlider({
         value={value}
         onChange={handleChange}
         step={step}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+        className="w-full h-2 bg-blue-300 rounded-lg appearance-none cursor-pointer dark:bg-blue-700"
       />
     </>
   );
