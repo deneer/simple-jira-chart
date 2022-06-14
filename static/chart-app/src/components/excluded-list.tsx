@@ -19,7 +19,7 @@ function ExcludedList({
   baseUrl,
 }: ExcludedLisProps) {
   return data.length > 0 ? (
-    <div className="w-full px-4 pt-2">
+    <div className="w-full mt-2">
       <div className="w-full p-2 mx-auto bg-white rounded-2xl">
         <Disclosure>
           {({ open }) => (
