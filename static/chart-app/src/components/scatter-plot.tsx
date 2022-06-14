@@ -79,7 +79,10 @@ function ScatterPlot({
 
   const sizeScale = useMemo(
     () =>
-      scaleLinear<number>({ domain: sizeDomain, range: [5, sizeDomain[1]] }),
+      scaleLinear<number>({
+        domain: sizeDomain,
+        range: [30, sizeDomain[1] * 50],
+      }),
     [sizeDomain]
   );
 
