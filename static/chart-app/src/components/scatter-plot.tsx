@@ -30,6 +30,7 @@ export type ScatterPlotProps = {
   yDomain: [number, number];
   sizeDomain: [number, number];
   baseUrl: string;
+  opacity: number;
   data: JitteredIssue[];
 };
 
@@ -44,6 +45,7 @@ function ScatterPlot({
   yDomain,
   sizeDomain,
   baseUrl,
+  opacity,
   data,
 }: ScatterPlotProps) {
   /**
@@ -153,7 +155,7 @@ function ScatterPlot({
                 )}
                 stroke="black"
                 strokeWidth={1}
-                opacity={0.6}
+                opacity={opacity}
                 cursor="pointer"
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
                 onMouseLeave={handleMouseLeave}
@@ -173,7 +175,7 @@ function ScatterPlot({
                 fill="red"
                 stroke="black"
                 strokeWidth={1}
-                opacity={0.6}
+                opacity={opacity}
                 cursor="pointer"
                 onMouseMove={(e) => handleMouseMove(e, scatter)}
                 onMouseLeave={handleMouseLeave}
