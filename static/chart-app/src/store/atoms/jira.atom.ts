@@ -43,10 +43,16 @@ export const jiraIssuesSizeDomainAtom = atom<[number, number]>((get) => {
   ];
 });
 
+export const resetJitterAtom = atom<boolean>(false);
+
 export const jitteredJiraIssuesAtom = atom<JitteredIssue[]>((get) => {
   const notExcludedIssues = get(filteredJiraIssuesAtom);
   const xDomain = get(jiraIssuesXDomainAtom);
   const yDomain = get(jiraIssuesYDomainAtom);
+
+  // Rerender if reset button is clicked
+  get(resetJitterAtom);
+
   const indicesByData = notExcludedIssues.reduce(
     (acc: { [key in string]: number[] }, curr, currIndex) => ({
       ...acc,
