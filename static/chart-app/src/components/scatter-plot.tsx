@@ -4,6 +4,7 @@ import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { useTooltip } from "@visx/tooltip";
+import { ProvidedZoom } from "@visx/zoom/lib/types";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
@@ -30,6 +31,7 @@ export type ScatterPlotProps = {
   sizeDomain: [number, number];
   baseUrl: string;
   opacity: number;
+  zoom: ProvidedZoom<SVGSVGElement> & { isDragging: any };
   data: JitteredIssue[];
 };
 
@@ -45,6 +47,7 @@ function ScatterPlot({
   sizeDomain,
   baseUrl,
   opacity,
+  zoom,
   data,
 }: ScatterPlotProps) {
   /**
