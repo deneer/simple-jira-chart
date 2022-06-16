@@ -84,7 +84,7 @@ function ScatterPlot({
     () =>
       scaleLinear<number>({
         domain: sizeDomain,
-        range: [30, sizeDomain[1] * 50],
+        range: [200, sizeDomain[1] * 200],
       }),
     [sizeDomain]
   );
