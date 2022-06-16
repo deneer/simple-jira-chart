@@ -3,3 +3,4 @@
 /.vscode/
 .idea
 /static/chart-app-old/
+static/chart-app/src/store/atoms/jira-mock-data.ts
