@@ -4,6 +4,7 @@ import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { useTooltip } from "@visx/tooltip";
+import { ProvidedZoom } from "@visx/zoom/lib/types";
 import React, { useCallback, useMemo, useRef } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
@@ -30,6 +31,7 @@ export type ScatterPlotProps = {
   sizeDomain: [number, number];
   baseUrl: string;
   opacity: number;
+  zoom: ProvidedZoom<SVGSVGElement> & { isDragging: any };
   data: JitteredIssue[];
 };
 
@@ -45,6 +47,7 @@ function ScatterPlot({
   sizeDomain,
   baseUrl,
   opacity,
+  zoom,
   data,
 }: ScatterPlotProps) {
   /**
@@ -81,7 +84,7 @@ function ScatterPlot({
     () =>
       scaleLinear<number>({
         domain: sizeDomain,
-        range: [30, sizeDomain[1] * 50],
+        range: [200, sizeDomain[1] * 200],
       }),
     [sizeDomain]
   );
@@ -89,7 +92,7 @@ function ScatterPlot({
   /**
    * Set svg ref for scatter chart
    */
-  const svgRef = useRef<SVGSVGElement>(null);
+  const svgRef = zoom.containerRef;
 
   /**
    * Set tooltip timeout and hooks
@@ -139,9 +142,17 @@ function ScatterPlot({
 
   return (
     <>
-      <svg width={width} height={height} ref={svgRef}>
+      <svg
+        width={width}
+        height={height}
+        style={{
+          cursor: zoom.isDragging ? "grabbing" : "default",
+          touchAction: "none",
+        }}
+        ref={svgRef}
+      >
         <rect width={width} height={height} rx={10} fill="#f9fafb" />
-        <Group left={margin.left} top={margin.top}>
+        <Group left={margin.left} top={margin.top} transform={zoom.toString()}>
           <AxisBottom scale={xScale} top={chartHeight} label={xAxis} />
           <AxisLeft scale={yScale} label={yAxis} />
           {data.map((scatter, index) => (
