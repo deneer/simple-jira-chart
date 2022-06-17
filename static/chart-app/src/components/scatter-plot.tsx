@@ -141,17 +141,17 @@ function ScatterPlot({
   }, [hideTooltip]);
 
   return (
-    <>
+    <div className="relative aspect-square">
       <svg
-        width={width}
-        height={height}
+        width="100%"
+        height="100%"
         style={{
           cursor: zoom.isDragging ? "grabbing" : "default",
           touchAction: "none",
         }}
         ref={svgRef}
       >
-        <rect width={width} height={height} rx={10} fill="#f9fafb" />
+        <rect width="100%" height="100%" rx={10} fill="#f9fafb" />
         <Group left={margin.left} top={margin.top} transform={zoom.toString()}>
           <AxisBottom scale={xScale} top={chartHeight} label={xAxis} />
           <AxisLeft scale={yScale} label={yAxis} />
@@ -192,7 +192,7 @@ function ScatterPlot({
             data={tooltipData}
           />
         )}
-    </>
+    </div>
   );
 }
 
