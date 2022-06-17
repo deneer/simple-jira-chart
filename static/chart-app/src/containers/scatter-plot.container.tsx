@@ -24,14 +24,9 @@ function ScatterPlotContainer() {
 
   return (
     <>
-      {/* There's bug that height do not resize properly when height style is 100% */}
       <ParentSize
         parentSizeStyles={{
           width: "100%",
-          height: "100%",
-          minHeight: "0",
-          position: "relative",
-          aspectRatio: "4/3",
         }}
       >
         {({ width, height }) => (
