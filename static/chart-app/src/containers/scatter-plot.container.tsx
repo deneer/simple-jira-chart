@@ -21,9 +21,17 @@ function ScatterPlotContainer() {
   const opacityValue = useAtomValue(opacityAtom);
 
   return (
-    <div className="relative w-full aspect-[4/3]">
+    <>
       {/* There's bug that height do not resize properly when height style is 100% */}
-      <ParentSize parentSizeStyles={{ width: "100%", height: "99%" }}>
+      <ParentSize
+        parentSizeStyles={{
+          width: "100%",
+          height: "100%",
+          minHeight: "0",
+          position: "relative",
+          aspectRatio: "4/3",
+        }}
+      >
         {({ width, height }) => (
           <Zoom<SVGSVGElement>
             width={width}
@@ -61,7 +69,7 @@ function ScatterPlotContainer() {
           </Zoom>
         )}
       </ParentSize>
-    </div>
+    </>
   );
 }
 
