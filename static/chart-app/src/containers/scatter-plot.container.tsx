@@ -48,7 +48,7 @@ function ScatterPlotContainer() {
           >
             {(zoom) => (
               <>
-                <RefreshContainer />
+                <RefreshContainer zoom={zoom} />
                 <ScatterPlot
                   margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
                   width={width}
