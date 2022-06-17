@@ -11,6 +11,8 @@ import {
   jiraIssuesSizeDomainAtom,
 } from "../store/atoms/jira.atom";
 import { opacityAtom } from "../store/atoms/scatter-plot.atom";
+import RefreshContainer from "./refresh.container";
+import { OpacityRangeSliderContainer } from "./opacity-range-slider.container";
 
 function ScatterPlotContainer() {
   const issueData = useAtomValue(jitteredJiraIssuesAtom);
@@ -21,13 +23,16 @@ function ScatterPlotContainer() {
   const opacityValue = useAtomValue(opacityAtom);
 
   return (
-    <div className="relative w-full aspect-[4/3]">
-      {/* There's bug that height do not resize properly when height style is 100% */}
-      <ParentSize parentSizeStyles={{ width: "100%", height: "99%" }}>
+    <>
+      <ParentSize
+        parentSizeStyles={{
+          width: "100%",
+        }}
+      >
         {({ width, height }) => (
           <Zoom<SVGSVGElement>
             width={width}
-            height={height}
+            height={width}
             scaleXMin={1 / 2}
             scaleXMax={4}
             scaleYMin={1 / 2}
@@ -35,33 +40,37 @@ function ScatterPlotContainer() {
             initialTransformMatrix={{
               scaleX: 1,
               scaleY: 1,
-              translateX: width / 2 + 60,
-              translateY: height / 2 + 30,
+              translateX: 60,
+              translateY: 30,
               skewX: 0,
               skewY: 0,
             }}
           >
             {(zoom) => (
-              <ScatterPlot
-                margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
-                width={width}
-                height={height}
-                xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}
-                yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
-                sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
-                baseUrl={jiraConfig.siteUrl}
-                xDomain={xDomain}
-                yDomain={yDomain}
-                sizeDomain={sizeDomain}
-                opacity={opacityValue}
-                zoom={zoom}
-                data={issueData}
-              />
+              <>
+                <RefreshContainer zoom={zoom} />
+                <ScatterPlot
+                  margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
+                  width={width}
+                  height={width}
+                  xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}
+                  yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
+                  sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
+                  baseUrl={jiraConfig.siteUrl}
+                  xDomain={xDomain}
+                  yDomain={yDomain}
+                  sizeDomain={sizeDomain}
+                  opacity={opacityValue}
+                  zoom={zoom}
+                  data={issueData}
+                />
+                <OpacityRangeSliderContainer />
+              </>
             )}
           </Zoom>
         )}
       </ParentSize>
-    </div>
+    </>
   );
 }
 
