@@ -32,7 +32,7 @@ function ScatterPlotContainer() {
         {({ width, height }) => (
           <Zoom<SVGSVGElement>
             width={width}
-            height={height}
+            height={width}
             scaleXMin={1 / 2}
             scaleXMax={4}
             scaleYMin={1 / 2}
@@ -52,7 +52,7 @@ function ScatterPlotContainer() {
                 <ScatterPlot
                   margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
                   width={width}
-                  height={height}
+                  height={width}
                   xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}
                   yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
                   sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
