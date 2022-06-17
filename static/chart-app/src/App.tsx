@@ -7,7 +7,6 @@ function App() {
   return (
     <div className="flex flex-col w-3/5 min-w-[600px] items-center mr-auto ml-auto">
       <ScatterPlotContainer />
-      <OpacityRangeSliderContainer />
       <ExcludedListContainer />
     </div>
   );
