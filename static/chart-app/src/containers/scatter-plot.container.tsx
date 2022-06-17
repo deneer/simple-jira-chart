@@ -40,8 +40,8 @@ function ScatterPlotContainer() {
             initialTransformMatrix={{
               scaleX: 1,
               scaleY: 1,
-              translateX: width / 2 + 60,
-              translateY: height / 2 + 30,
+              translateX: 60,
+              translateY: 30,
               skewX: 0,
               skewY: 0,
             }}
