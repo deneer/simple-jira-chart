@@ -11,6 +11,7 @@ import {
   jiraIssuesSizeDomainAtom,
 } from "../store/atoms/jira.atom";
 import { opacityAtom } from "../store/atoms/scatter-plot.atom";
+import RefreshContainer from "./refresh.container";
 
 function ScatterPlotContainer() {
   const issueData = useAtomValue(jitteredJiraIssuesAtom);
@@ -50,21 +51,24 @@ function ScatterPlotContainer() {
             }}
           >
             {(zoom) => (
-              <ScatterPlot
-                margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
-                width={width}
-                height={height}
-                xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}
-                yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
-                sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
-                baseUrl={jiraConfig.siteUrl}
-                xDomain={xDomain}
-                yDomain={yDomain}
-                sizeDomain={sizeDomain}
-                opacity={opacityValue}
-                zoom={zoom}
-                data={issueData}
-              />
+              <>
+                <RefreshContainer />
+                <ScatterPlot
+                  margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
+                  width={width}
+                  height={height}
+                  xAxis={JSON.parse(jiraConfig.extension.config.xAxis).name}
+                  yAxis={JSON.parse(jiraConfig.extension.config.yAxis).name}
+                  sizeAxis={JSON.parse(jiraConfig.extension.config.zAxis).name}
+                  baseUrl={jiraConfig.siteUrl}
+                  xDomain={xDomain}
+                  yDomain={yDomain}
+                  sizeDomain={sizeDomain}
+                  opacity={opacityValue}
+                  zoom={zoom}
+                  data={issueData}
+                />
+              </>
             )}
           </Zoom>
         )}
