@@ -1,7 +1,10 @@
+import { ProvidedZoom } from "@visx/zoom/lib/types";
 import { useAtom } from "jotai";
 import { resetIssuesAtom, resetJitterAtom } from "../store/atoms/jira.atom";
 
-function RefreshContainer() {
+export type RefreshContainerProps = { zoom: ProvidedZoom<SVGSVGElement> };
+
+function RefreshContainer({ zoom }: RefreshContainerProps) {
   const [reset, resetJitter] = useAtom(resetJitterAtom);
   const [refresh, refreshIssues] = useAtom(resetIssuesAtom);
   return (
@@ -11,6 +14,12 @@ function RefreshContainer() {
         onClick={() => refreshIssues(!refresh)}
       >
         Refresh Issues
+      </button>
+      <button
+        className="bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-2 px-4 rounded inline-flex items-center justify-center text-xs"
+        onClick={() => zoom.reset()}
+      >
+        Reset Zoom
       </button>
       <button
         className="bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-2 px-4 rounded inline-flex items-center justify-center text-xs"
