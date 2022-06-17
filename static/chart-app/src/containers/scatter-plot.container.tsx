@@ -12,6 +12,7 @@ import {
 } from "../store/atoms/jira.atom";
 import { opacityAtom } from "../store/atoms/scatter-plot.atom";
 import RefreshContainer from "./refresh.container";
+import { OpacityRangeSliderContainer } from "./opacity-range-slider.container";
 
 function ScatterPlotContainer() {
   const issueData = useAtomValue(jitteredJiraIssuesAtom);
@@ -68,6 +69,7 @@ function ScatterPlotContainer() {
                   zoom={zoom}
                   data={issueData}
                 />
+                <OpacityRangeSliderContainer />
               </>
             )}
           </Zoom>
