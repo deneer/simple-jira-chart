@@ -31,6 +31,7 @@ export type ScatterPlotProps = {
   xDomain: [number, number];
   yDomain: [number, number];
   sizeDomain: [number, number];
+  sizeUnit: number;
   baseUrl: string;
   opacity: number;
   zoom: ProvidedZoom<SVGSVGElement> & {
@@ -65,6 +66,7 @@ function ScatterPlot({
   xDomain,
   yDomain,
   sizeDomain,
+  sizeUnit,
   baseUrl,
   opacity,
   zoom,
@@ -104,9 +106,9 @@ function ScatterPlot({
     () =>
       scaleLinear<number>({
         domain: sizeDomain,
-        range: [200, sizeDomain[1] * 200],
+        range: [sizeUnit, sizeDomain[1] * sizeUnit],
       }),
-    [sizeDomain]
+    [sizeDomain, sizeUnit]
   );
 
   const [showMinimap, setShowMinimap] = useState(false);
