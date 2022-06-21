@@ -252,6 +252,12 @@ function ScatterPlot({
           </Group>
         )}
       </svg>
+      <button
+        className="absolute bottom-0 right-0 hover:bg-slate-200 text-slate-900 py-1 px-1 rounded inline-flex items-center justify-center text-xs font-semibold"
+        onClick={() => setShowMinimap(!showMinimap)}
+      >
+        {showMinimap ? "Hide Minimap" : "Show Minimap"}
+      </button>
       {tooltipOpen &&
         tooltipData &&
         tooltipLeft != null &&
