@@ -207,6 +207,50 @@ function ScatterPlot({
             />
           ))}
         </Group>
+        {showMinimap && (
+          <Group
+            clipPath="url(#zoom-clip)"
+            transform={`
+            scale(0.2)
+            translate(${width * 5 - width}, ${height * 5 - height - 120})
+          `}
+          >
+            <rect
+              width={width}
+              height={height}
+              fill="#1a1a1a"
+              fillOpacity={0.3}
+            />
+            {data.map((scatter, index) => (
+              <Scatter
+                key={`scatter-${scatter.issueKey}-${index}`}
+                x={
+                  xScale(scatter.jitteredX) +
+                  zoom.initialTransformMatrix.translateX
+                }
+                y={
+                  yScale(scatter.jitteredY) +
+                  zoom.initialTransformMatrix.translateY
+                }
+                size={sizeScale(scatter.size)}
+                fill={getHexColorWithJiraStatusKey(
+                  scatter.status?.statusCategory.key as JiraStatusKey
+                )}
+                stroke="black"
+                strokeWidth={1}
+              />
+            ))}
+            <rect
+              width={width}
+              height={height}
+              fill="white"
+              fillOpacity={0.2}
+              stroke="red"
+              strokeWidth={4}
+              transform={minimapRectTransform}
+            />
+          </Group>
+        )}
       </svg>
       {tooltipOpen &&
         tooltipData &&
