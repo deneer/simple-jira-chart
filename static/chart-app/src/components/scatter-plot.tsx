@@ -30,6 +30,8 @@ export type ScatterPlotProps = {
   sizeAxis: string;
   xDomain: [number, number];
   yDomain: [number, number];
+  xAscending: boolean;
+  yAscending: boolean;
   sizeDomain: [number, number];
   sizeUnit: number;
   baseUrl: string;
@@ -65,6 +67,8 @@ function ScatterPlot({
   sizeAxis,
   xDomain,
   yDomain,
+  xAscending,
+  yAscending,
   sizeDomain,
   sizeUnit,
   baseUrl,
@@ -86,20 +90,20 @@ function ScatterPlot({
     () =>
       scaleLinear<number>({
         domain: xDomain,
-        range: [0, chartWidth],
+        range: xAscending ? [0, chartWidth] : [chartWidth, 0],
         clamp: true,
       }),
-    [xDomain, width]
+    [xDomain, xAscending, width]
   );
 
   const yScale = useMemo(
     () =>
       scaleLinear<number>({
         domain: yDomain,
-        range: [chartHeight, 0],
+        range: yAscending ? [chartHeight, 0] : [0, chartHeight],
         clamp: true,
       }),
-    [yDomain, height]
+    [yDomain, yAscending, height]
   );
 
   const sizeScale = useMemo(
