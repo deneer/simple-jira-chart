@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.6.4",
     "@heroicons/react": "^1.0.6",
     "@visx/axis": "^2.10.0",
+    "@visx/clip-path": "^2.10.0",
     "@visx/event": "^2.6.0",
     "@visx/glyph": "^2.10.0",
     "@visx/group": "^2.10.0",
