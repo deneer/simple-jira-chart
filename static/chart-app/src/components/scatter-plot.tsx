@@ -1,11 +1,13 @@
 import { router } from "@forge/bridge";
 import { AxisBottom, AxisLeft } from "@visx/axis";
+import { RectClipPath } from "@visx/clip-path";
 import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { useTooltip } from "@visx/tooltip";
+import { inverseMatrix } from "@visx/zoom";
 import { ProvidedZoom } from "@visx/zoom/lib/types";
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
 import { JitteredIssue } from "../types/jittered-issue.type";
@@ -31,7 +33,25 @@ export type ScatterPlotProps = {
   sizeDomain: [number, number];
   baseUrl: string;
   opacity: number;
-  zoom: ProvidedZoom<SVGSVGElement> & { isDragging: any };
+  zoom: ProvidedZoom<SVGSVGElement> & {
+    isDragging: any;
+    transformMatrix: {
+      scaleX: number;
+      scaleY: number;
+      skewX: number;
+      skewY: number;
+      translateX: number;
+      translateY: number;
+    };
+    initialTransformMatrix: {
+      scaleX: number;
+      scaleY: number;
+      skewX: number;
+      skewY: number;
+      translateX: number;
+      translateY: number;
+    };
+  };
   data: JitteredIssue[];
 };
 
@@ -89,6 +109,8 @@ function ScatterPlot({
     [sizeDomain]
   );
 
+  const [showMinimap, setShowMinimap] = useState(false);
+
   /**
    * Set svg ref for scatter chart
    */
@@ -140,6 +162,12 @@ function ScatterPlot({
     }, 10);
   }, [hideTooltip]);
 
+  const { translateX, translateY, scaleX, scaleY, skewX, skewY } =
+    inverseMatrix(zoom.transformMatrix);
+  const minimapRectTransform = `matrix(${scaleX}, ${skewY}, ${skewX}, ${scaleY}, ${
+    translateX + zoom.initialTransformMatrix.translateX
+  }, ${translateY + zoom.initialTransformMatrix.translateY})`;
+
   return (
     <div className="relative aspect-square">
       <svg
@@ -152,6 +180,7 @@ function ScatterPlot({
         ref={svgRef}
       >
         <rect width="100%" height="100%" rx={10} fill="#f9fafb" />
+        <RectClipPath id="zoom-clip" width="100%" height="100%" />
         <Group left={margin.left} top={margin.top} transform={zoom.toString()}>
           <AxisBottom scale={xScale} top={chartHeight} label={xAxis} />
           <AxisLeft scale={yScale} label={yAxis} />
@@ -178,7 +207,57 @@ function ScatterPlot({
             />
           ))}
         </Group>
+        {showMinimap && (
+          <Group
+            clipPath="url(#zoom-clip)"
+            transform={`
+            scale(0.2)
+            translate(${width * 5 - width}, ${height * 5 - height - 120})
+          `}
+          >
+            <rect
+              width={width}
+              height={height}
+              fill="#1a1a1a"
+              fillOpacity={0.3}
+            />
+            {data.map((scatter, index) => (
+              <Scatter
+                key={`scatter-${scatter.issueKey}-${index}`}
+                x={
+                  xScale(scatter.jitteredX) +
+                  zoom.initialTransformMatrix.translateX
+                }
+                y={
+                  yScale(scatter.jitteredY) +
+                  zoom.initialTransformMatrix.translateY
+                }
+                size={sizeScale(scatter.size)}
+                fill={getHexColorWithJiraStatusKey(
+                  scatter.status?.statusCategory.key as JiraStatusKey
+                )}
+                stroke="black"
+                strokeWidth={1}
+              />
+            ))}
+            <rect
+              width={width}
+              height={height}
+              fill="white"
+              fillOpacity={0.2}
+              stroke="red"
+              strokeWidth={4}
+              transform={minimapRectTransform}
+            />
+          </Group>
+        )}
       </svg>
+      <button
+        className="absolute bottom-0 right-0 hover:bg-slate-200 text-slate-900 py-1 px-1 rounded inline-flex items-center justify-center text-xs font-semibold"
+        onClick={() => setShowMinimap(!showMinimap)}
+      >
+        {showMinimap ? "Hide Minimap" : "Show Minimap"}
+      </button>
       {tooltipOpen &&
         tooltipData &&
         tooltipLeft != null &&
