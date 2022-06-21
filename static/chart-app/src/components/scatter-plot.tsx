@@ -1,5 +1,6 @@
 import { router } from "@forge/bridge";
 import { AxisBottom, AxisLeft } from "@visx/axis";
+import { RectClipPath } from "@visx/clip-path";
 import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
@@ -179,6 +180,7 @@ function ScatterPlot({
         ref={svgRef}
       >
         <rect width="100%" height="100%" rx={10} fill="#f9fafb" />
+        <RectClipPath id="zoom-clip" width="100%" height="100%" />
         <Group left={margin.left} top={margin.top} transform={zoom.toString()}>
           <AxisBottom scale={xScale} top={chartHeight} label={xAxis} />
           <AxisLeft scale={yScale} label={yAxis} />
