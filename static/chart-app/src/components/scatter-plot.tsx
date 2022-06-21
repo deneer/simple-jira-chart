@@ -4,6 +4,7 @@ import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { useTooltip } from "@visx/tooltip";
+import { inverseMatrix } from "@visx/zoom";
 import { ProvidedZoom } from "@visx/zoom/lib/types";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
@@ -31,7 +32,25 @@ export type ScatterPlotProps = {
   sizeDomain: [number, number];
   baseUrl: string;
   opacity: number;
-  zoom: ProvidedZoom<SVGSVGElement> & { isDragging: any };
+  zoom: ProvidedZoom<SVGSVGElement> & {
+    isDragging: any;
+    transformMatrix: {
+      scaleX: number;
+      scaleY: number;
+      skewX: number;
+      skewY: number;
+      translateX: number;
+      translateY: number;
+    };
+    initialTransformMatrix: {
+      scaleX: number;
+      scaleY: number;
+      skewX: number;
+      skewY: number;
+      translateX: number;
+      translateY: number;
+    };
+  };
   data: JitteredIssue[];
 };
 
@@ -141,6 +160,12 @@ function ScatterPlot({
       hideTooltip();
     }, 10);
   }, [hideTooltip]);
+
+  const { translateX, translateY, scaleX, scaleY, skewX, skewY } =
+    inverseMatrix(zoom.transformMatrix);
+  const minimapRectTransform = `matrix(${scaleX}, ${skewY}, ${skewX}, ${scaleY}, ${
+    translateX + zoom.initialTransformMatrix.translateX
+  }, ${translateY + zoom.initialTransformMatrix.translateY})`;
 
   return (
     <div className="relative aspect-square">
