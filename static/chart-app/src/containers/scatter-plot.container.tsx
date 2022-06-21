@@ -10,7 +10,7 @@ import {
   jiraIssuesYDomainAtom,
   jiraIssuesSizeDomainAtom,
 } from "../store/atoms/jira.atom";
-import { opacityAtom } from "../store/atoms/scatter-plot.atom";
+import { opacityAtom, sizeUnitAtom } from "../store/atoms/scatter-plot.atom";
 import RefreshContainer from "./refresh.container";
 import { OpacityRangeSliderContainer } from "./opacity-range-slider.container";
 
@@ -21,6 +21,7 @@ function ScatterPlotContainer() {
   const yDomain = useAtomValue(jiraIssuesYDomainAtom);
   const sizeDomain = useAtomValue(jiraIssuesSizeDomainAtom);
   const opacityValue = useAtomValue(opacityAtom);
+  const sizeUnitValue = useAtomValue(sizeUnitAtom);
 
   return (
     <>
@@ -60,6 +61,7 @@ function ScatterPlotContainer() {
                   xDomain={xDomain}
                   yDomain={yDomain}
                   sizeDomain={sizeDomain}
+                  sizeUnit={sizeUnitValue}
                   opacity={opacityValue}
                   zoom={zoom}
                   data={issueData}
