@@ -5,7 +5,7 @@ import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { useTooltip } from "@visx/tooltip";
 import { ProvidedZoom } from "@visx/zoom/lib/types";
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { ChartPluginResponse } from "../types/chart-plugin-response.type";
 import { JiraStatusKey } from "../types/jira-status-key.enum";
 import { JitteredIssue } from "../types/jittered-issue.type";
@@ -88,6 +88,8 @@ function ScatterPlot({
       }),
     [sizeDomain]
   );
+
+  const [showMinimap, setShowMinimap] = useState(false);
 
   /**
    * Set svg ref for scatter chart
