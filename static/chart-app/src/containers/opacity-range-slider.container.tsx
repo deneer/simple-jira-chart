@@ -1,10 +1,21 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
+import { useMemo } from "react";
 import { RangeSlider } from "../components/range-slider";
-import { opacityAtom, sizeUnitAtom } from "../store/atoms/scatter-plot.atom";
+import { jiraConfigAtom } from "../store/atoms/jira.atom";
+import {
+  opacityAtom,
+  sizeUnitAtom,
+  xDomainAscendingAtom,
+  yDomainAscendingAtom,
+} from "../store/atoms/scatter-plot.atom";
+import { FaSortUp, FaSortDown } from "react-icons/fa";
 
 export function OpacityRangeSliderContainer() {
+  const jiraConfig = useAtomValue(jiraConfigAtom);
   const [opacity, setOpacity] = useAtom(opacityAtom);
   const [sizeUnit, setSizeUnit] = useAtom(sizeUnitAtom);
+  const [xDomainAscending, setXDomainAscending] = useAtom(xDomainAscendingAtom);
+  const [yDomainAscending, setYDomainAscending] = useAtom(yDomainAscendingAtom);
 
   const handleOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setOpacity(+e.target.value);
@@ -12,9 +23,18 @@ export function OpacityRangeSliderContainer() {
   const haneldSizeUnitChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSizeUnit(+e.target.value);
 
+  const xDomainName = useMemo(
+    () => JSON.parse(jiraConfig.extension.config.xAxis).name,
+    [jiraConfig]
+  );
+  const yDomainName = useMemo(
+    () => JSON.parse(jiraConfig.extension.config.yAxis).name,
+    [jiraConfig]
+  );
+
   return (
-    <div className="flex space-x-4">
-      <div className="w-full flex justify-between items-center mt-2 bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
+    <div className="flex space-x-4 mt-2">
+      <div className="w-full flex justify-between items-center bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
         <p className="mr-4 w-24">투명도 조절</p>
         <RangeSlider
           value={opacity}
@@ -24,7 +44,7 @@ export function OpacityRangeSliderContainer() {
           handleChange={handleOpacityChange}
         />
       </div>
-      <div className="w-full flex justify-between items-center mt-2 bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
+      <div className="w-full flex justify-between items-center bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
         <p className="mr-4 w-24">점 크기 조절</p>
         <RangeSlider
           value={sizeUnit}
@@ -34,6 +54,20 @@ export function OpacityRangeSliderContainer() {
           handleChange={haneldSizeUnitChange}
         />
       </div>
+      <button
+        className="bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold p-2 rounded inline-flex items-center justify-center text-xs"
+        onClick={() => setXDomainAscending(!xDomainAscending)}
+      >
+        <p className="min-w-max">{xDomainName}</p>
+        {xDomainAscending ? <FaSortUp /> : <FaSortDown />}
+      </button>
+      <button
+        className="bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold p-2 rounded inline-flex items-center justify-center text-xs"
+        onClick={() => setYDomainAscending(!yDomainAscending)}
+      >
+        <p className="min-w-max">{yDomainName}</p>
+        {yDomainAscending ? <FaSortUp /> : <FaSortDown />}
+      </button>
     </div>
   );
 }
