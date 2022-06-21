@@ -1,8 +1,10 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
+import { useMemo } from "react";
 import { RangeSlider } from "../components/range-slider";
 import { opacityAtom, sizeUnitAtom } from "../store/atoms/scatter-plot.atom";
 
 export function OpacityRangeSliderContainer() {
+  const jiraConfig = useAtomValue(jiraConfigAtom);
   const [opacity, setOpacity] = useAtom(opacityAtom);
   const [sizeUnit, setSizeUnit] = useAtom(sizeUnitAtom);
 
@@ -11,6 +13,15 @@ export function OpacityRangeSliderContainer() {
 
   const haneldSizeUnitChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSizeUnit(+e.target.value);
+
+  const xDomainName = useMemo(
+    () => JSON.parse(jiraConfig.extension.config.xAxis).name,
+    [jiraConfig]
+  );
+  const yDomainName = useMemo(
+    () => JSON.parse(jiraConfig.extension.config.yAxis).name,
+    [jiraConfig]
+  );
 
   return (
     <div className="flex space-x-4">
