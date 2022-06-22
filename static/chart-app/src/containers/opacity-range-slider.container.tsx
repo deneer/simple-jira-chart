@@ -35,7 +35,7 @@ export function OpacityRangeSliderContainer() {
   return (
     <div className="flex space-x-4 mt-2">
       <div className="w-full flex justify-between items-center bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
-        <p className="mr-4 w-24">투명도 조절</p>
+        <p className="mr-4 min-w-fit">투명도 조절</p>
         <RangeSlider
           value={opacity}
           min={0}
@@ -45,7 +45,7 @@ export function OpacityRangeSliderContainer() {
         />
       </div>
       <div className="w-full flex justify-between items-center bg-blue-100 font-bold text-xs text-blue-900 rounded p-2">
-        <p className="mr-4 w-24">점 크기 조절</p>
+        <p className="mr-4 min-w-fit">점 크기 조절</p>
         <RangeSlider
           value={sizeUnit}
           min={10}
