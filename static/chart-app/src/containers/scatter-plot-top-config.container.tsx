@@ -2,9 +2,13 @@ import { ProvidedZoom } from "@visx/zoom/lib/types";
 import { useAtom } from "jotai";
 import { resetIssuesAtom, resetJitterAtom } from "../store/atoms/jira.atom";
 
-export type RefreshContainerProps = { zoom: ProvidedZoom<SVGSVGElement> };
+export type ScatterPlotTopConfigContainerProps = {
+  zoom: ProvidedZoom<SVGSVGElement>;
+};
 
-function RefreshContainer({ zoom }: RefreshContainerProps) {
+function ScatterPlotTopConfigContainer({
+  zoom,
+}: ScatterPlotTopConfigContainerProps) {
   const [reset, resetJitter] = useAtom(resetJitterAtom);
   const [refresh, refreshIssues] = useAtom(resetIssuesAtom);
   return (
@@ -31,4 +35,4 @@ function RefreshContainer({ zoom }: RefreshContainerProps) {
   );
 }
 
-export default RefreshContainer;
+export default ScatterPlotTopConfigContainer;

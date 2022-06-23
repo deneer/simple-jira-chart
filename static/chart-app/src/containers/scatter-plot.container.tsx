@@ -16,7 +16,7 @@ import {
   xDomainAscendingAtom,
   yDomainAscendingAtom,
 } from "../store/atoms/scatter-plot.atom";
-import RefreshContainer from "./scatter-plot-top-config.container";
+import ScatterPlotTopConfigContainer from "./scatter-plot-top-config.container";
 import ScatterPlotBottomConfigContainer from "./scatter-plot-bottom-config.container";
 
 function ScatterPlotContainer() {
@@ -56,7 +56,7 @@ function ScatterPlotContainer() {
           >
             {(zoom) => (
               <>
-                <RefreshContainer zoom={zoom} />
+                <ScatterPlotTopConfigContainer zoom={zoom} />
                 <ScatterPlot
                   margin={{ top: 30, right: 30, bottom: 50, left: 60 }}
                   width={width}
