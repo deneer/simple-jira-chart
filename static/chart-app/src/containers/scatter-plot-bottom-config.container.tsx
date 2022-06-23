@@ -10,7 +10,7 @@ import {
 } from "../store/atoms/scatter-plot.atom";
 import { FaSortUp, FaSortDown } from "react-icons/fa";
 
-export function OpacityRangeSliderContainer() {
+function OpacityRangeSliderContainer() {
   const jiraConfig = useAtomValue(jiraConfigAtom);
   const [opacity, setOpacity] = useAtom(opacityAtom);
   const [sizeUnit, setSizeUnit] = useAtom(sizeUnitAtom);
@@ -71,3 +71,5 @@ export function OpacityRangeSliderContainer() {
     </div>
   );
 }
+
+export default OpacityRangeSliderContainer;
