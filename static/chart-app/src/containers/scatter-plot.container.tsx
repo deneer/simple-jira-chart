@@ -17,7 +17,7 @@ import {
   yDomainAscendingAtom,
 } from "../store/atoms/scatter-plot.atom";
 import RefreshContainer from "./refresh.container";
-import { OpacityRangeSliderContainer } from "./opacity-range-slider.container";
+import ScatterPlotBottomConfigContainer from "./scatter-plot-bottom-config.container";
 
 function ScatterPlotContainer() {
   const issueData = useAtomValue(jitteredJiraIssuesAtom);
@@ -75,7 +75,7 @@ function ScatterPlotContainer() {
                   zoom={zoom}
                   data={issueData}
                 />
-                <OpacityRangeSliderContainer />
+                <ScatterPlotBottomConfigContainer />
               </>
             )}
           </Zoom>
