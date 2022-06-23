@@ -16,7 +16,7 @@ import {
   xDomainAscendingAtom,
   yDomainAscendingAtom,
 } from "../store/atoms/scatter-plot.atom";
-import RefreshContainer from "./refresh.container";
+import RefreshContainer from "./scatter-plot-top-config.container";
 import ScatterPlotBottomConfigContainer from "./scatter-plot-bottom-config.container";
 
 function ScatterPlotContainer() {
