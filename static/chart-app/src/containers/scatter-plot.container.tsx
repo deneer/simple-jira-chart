@@ -45,6 +45,7 @@ function ScatterPlotContainer() {
             scaleXMax={4}
             scaleYMin={1 / 2}
             scaleYMax={4}
+            wheelDelta={(e) => ({ scaleX: 1, scaleY: 1 })}
             initialTransformMatrix={{
               scaleX: 1,
               scaleY: 1,
