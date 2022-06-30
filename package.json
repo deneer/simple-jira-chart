@@ -5,6 +5,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "setup": "npm i && cd static/chart-app && npm i && cd ../..",
     "deploy": "cd static/chart-app && npm run build && cd ../.. && forge deploy",
     "tunnel": "npm run deploy && forge tunnel",
     "deploy:production": "npm run deploy && forge deploy -e production",
